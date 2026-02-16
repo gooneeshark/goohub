@@ -1,0 +1,190 @@
+/* about.css - Special styles for the About Goonee page */
+
+:root {
+    --primary-color: #00ff41;
+    --secondary-color: #00e5ff;
+    --danger-color: #ff4444;
+    --bg-dark: #000000;
+    --card-bg: rgba(20, 20, 20, 0.8);
+    --glow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    overflow-x: hidden;
+    animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.about-hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+}
+
+.vision-quote {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-shadow: 0 0 20px var(--primary-color);
+    margin-bottom: 20px;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+.vision-sub {
+    font-size: 1.2rem;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+/* Chapter Sections */
+.chapter {
+    padding: 100px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chapter-title {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chapter-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.chapter-text p {
+    margin-bottom: 20px;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+.chapter-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 255, 65, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+    }
+}
+
+/* Identity Cards */
+.identity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.identity-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    padding: 30px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.identity-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--glow);
+}
+
+.identity-card h4 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+/* Contact Hub */
+.contact-hub {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.contact-item {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.contact-item:hover {
+    background: rgba(0, 255, 65, 0.05);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.contact-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chapter-content {
+        grid-template-columns: 1fr;
+    }
+
+    .vision-quote {
+        font-size: 1.8rem;
+    }
+}

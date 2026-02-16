@@ -20,7 +20,7 @@ class MetaTagManager {
             title: 'ศูนรวมของเล่นDevสไตล์Hacker - Advanced Web Security Toolkit',
             description: 'Discover powerful web security tools and development utilities for ethical hackers and developers. Features floating console, security scanners, and hacker-themed interface.',
             keywords: 'web security, ethical hacking, developer tools, security scanner, penetration testing, javascript tools, hacker tools, dev utilities, security testing, web development',
-            image: 'https://yoursite.com/gooimage/goometa.png',
+            image: 'https://goohub.js.org/gooimage/goometa.png',
             url: window.location.href,
             type: 'website',
             siteName: 'Shark Console',
@@ -94,7 +94,7 @@ class MetaTagManager {
     updateFromURL() {
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search);
-        
+
         if (params.has('tool')) {
             // If URL has tool parameter, update context
             const toolId = params.get('tool');
@@ -153,40 +153,40 @@ class MetaTagManager {
                 category: 'design'
             }
         };
-        
+
         return tools[toolId] || null;
     }
 
     updateMetaTags() {
         const metaTags = this.generateMetaTags();
-        
+
         // Update document title
         document.title = metaTags.title;
-        
+
         // Update meta tags
         this.updateMetaTag('name', 'description', metaTags.description);
         this.updateMetaTag('name', 'keywords', metaTags.keywords);
         this.updateMetaTag('name', 'author', metaTags.author);
-        
+
         // Update Open Graph tags
         this.updateMetaTag('property', 'og:title', metaTags.title);
         this.updateMetaTag('property', 'og:description', metaTags.description);
         this.updateMetaTag('property', 'og:image', metaTags.image);
         this.updateMetaTag('property', 'og:url', metaTags.url);
         this.updateMetaTag('property', 'og:type', metaTags.type);
-        
+
         // Update Twitter Card tags
         this.updateMetaTag('property', 'twitter:title', metaTags.title);
         this.updateMetaTag('property', 'twitter:description', metaTags.description);
         this.updateMetaTag('property', 'twitter:image', metaTags.image);
         this.updateMetaTag('property', 'twitter:url', metaTags.url);
-        
+
         // Update theme color based on current theme
         this.updateMetaTag('name', 'theme-color', this.getThemeColor());
-        
+
         // Update canonical URL
         this.updateCanonicalURL(metaTags.url);
-        
+
         // Update structured data
         this.updateStructuredData(metaTags);
     }
@@ -194,7 +194,7 @@ class MetaTagManager {
     generateMetaTags() {
         const base = this.baseMetaTags;
         const context = this.currentContext;
-        
+
         switch (context.page) {
             case 'tool':
                 return this.generateToolMetaTags(context.tool);
@@ -215,7 +215,7 @@ class MetaTagManager {
             ocean: 'Ocean Blue',
             fire: 'Fire Orange'
         };
-        
+
         return {
             title: `ศูนรวมของเล่นDevสไตล์Hacker - ${themeNames[theme]} Theme`,
             description: `Advanced web security toolkit with ${themeNames[theme]} theme. Features floating console, security scanners, and development utilities for ethical hackers.`,
@@ -229,7 +229,7 @@ class MetaTagManager {
 
     generateToolMetaTags(tool) {
         const theme = this.getCurrentTheme();
-        
+
         return {
             title: `${tool.name} - Shark Console Dev Tools`,
             description: `${tool.description} | Part of the advanced web security toolkit for ethical hackers and developers.`,
@@ -296,25 +296,25 @@ class MetaTagManager {
 
     updateMetaTag(attribute, name, content) {
         let tag = document.querySelector(`meta[${attribute}="${name}"]`);
-        
+
         if (!tag) {
             tag = document.createElement('meta');
             tag.setAttribute(attribute, name);
             document.head.appendChild(tag);
         }
-        
+
         tag.setAttribute('content', content);
     }
 
     updateCanonicalURL(url) {
         let canonical = document.querySelector('link[rel="canonical"]');
-        
+
         if (!canonical) {
             canonical = document.createElement('link');
             canonical.setAttribute('rel', 'canonical');
             document.head.appendChild(canonical);
         }
-        
+
         canonical.setAttribute('href', url);
     }
 
@@ -361,14 +361,14 @@ class MetaTagManager {
 
     updateStructuredDataScript(id, data) {
         let script = document.getElementById(id);
-        
+
         if (!script) {
             script = document.createElement('script');
             script.type = 'application/ld+json';
             script.id = id;
             document.head.appendChild(script);
         }
-        
+
         script.textContent = JSON.stringify(data, null, 2);
     }
 
@@ -390,7 +390,7 @@ class MetaTagManager {
     generateSitemap() {
         const tools = Object.keys(this.getToolById('') || {});
         const baseURL = window.location.origin + window.location.pathname;
-        
+
         const urls = [
             { url: baseURL, priority: 1.0, changefreq: 'weekly' },
             ...tools.map(toolId => ({
@@ -399,7 +399,7 @@ class MetaTagManager {
                 changefreq: 'monthly'
             }))
         ];
-        
+
         return urls;
     }
 
@@ -424,18 +424,18 @@ Sitemap: ${window.location.origin}/sitemap.xml`;
             context: this.currentContext,
             timestamp: Date.now()
         };
-        
+
         // Store in localStorage for analytics
         const seoHistory = JSON.parse(localStorage.getItem('seoMetrics') || '[]');
         seoHistory.push(metrics);
-        
+
         // Keep only last 100 entries
         if (seoHistory.length > 100) {
             seoHistory.splice(0, seoHistory.length - 100);
         }
-        
+
         localStorage.setItem('seoMetrics', JSON.stringify(seoHistory));
-        
+
         return metrics;
     }
 }
@@ -443,7 +443,7 @@ Sitemap: ${window.location.origin}/sitemap.xml`;
 // Initialize Meta Tag Manager
 document.addEventListener('DOMContentLoaded', () => {
     window.metaTagManager = new MetaTagManager();
-    
+
     // Integrate with existing social sharing system
     if (window.socialSharingSystem) {
         // Update social sharing when meta tags change

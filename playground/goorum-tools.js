@@ -342,7 +342,12 @@ function copyBookmarklet(type) {
         'proxy': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}postshark.js?t='+Date.now();document.body.appendChild(s)})();`,
         'ai-scan': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}sharkscan.js?t='+Date.now();document.body.appendChild(s)})();`,
         'theme': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}Theme.js?t='+Date.now();document.body.appendChild(s)})();`,
-        'twitter-theme': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}twitter-theme.js?t='+Date.now();document.body.appendChild(s)})();`
+        'twitter-theme': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}twitter-theme.js?t='+Date.now();document.body.appendChild(s)})();`,
+        'design-mode': `javascript:document.designMode=document.designMode==='on'?'off':'on';void(0);`,
+        'pass-reveal': `javascript:(function(){var p=document.querySelectorAll('input[type="password"]');for(var i=0;i<p.length;i++)p[i].type='text';})();`,
+        'element-zapper': `javascript:(function(){document.body.style.cursor='crosshair';document.addEventListener('click',function(e){e.preventDefault();e.target.remove();}, {once:true});})();`,
+        'dark-force': `javascript:(function(){var s=document.createElement('style');s.innerHTML='html,img,video{filter:invert(1)hue-rotate(180deg)}';document.head.appendChild(s);})();`,
+        'image-flipper': `javascript:(function(){var i=document.querySelectorAll('img');for(var j=0;j<i.length;j++)i[j].style.transform+='rotate(180deg)';})();`
     };
 
     const code = bookmarklets[type];

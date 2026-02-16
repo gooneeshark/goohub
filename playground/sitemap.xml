@@ -4,12 +4,12 @@
   
   <!-- Main page -->
   <url>
-    <loc>https://yoursite.com/</loc>
+    <loc>https://goohub.js.org/</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://yoursite.com/gooimage/goometa.png</image:loc>
+      <image:loc>https://goohub.js.org/gooimage/goometa.png</image:loc>
       <image:title>Shark Console - Advanced Web Security Toolkit</image:title>
       <image:caption>Main interface of the dev tools collection</image:caption>
     </image:image>
@@ -17,42 +17,42 @@
   
   <!-- Tool pages -->
   <url>
-    <loc>https://yoursite.com/?tool=floating-console</loc>
+    <loc>https://goohub.js.org/?tool=floating-console</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?tool=security-tools</loc>
+    <loc>https://goohub.js.org/?tool=security-tools</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?tool=twitter-theme</loc>
+    <loc>https://goohub.js.org/?tool=twitter-theme</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?tool=code-snippets</loc>
+    <loc>https://goohub.js.org/?tool=code-snippets</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?tool=metatag-generator</loc>
+    <loc>https://goohub.js.org/?tool=metatag-generator</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?tool=matrix-theme</loc>
+    <loc>https://goohub.js.org/?tool=matrix-theme</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -60,7 +60,7 @@
   
   <!-- Additional pages -->
   <url>
-    <loc>https://yoursite.com/test-bookmarklets.html</loc>
+    <loc>https://goohub.js.org/test-bookmarklets.html</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -68,42 +68,42 @@
   
   <!-- Theme variations -->
   <url>
-    <loc>https://yoursite.com/?theme=matrix</loc>
+    <loc>https://goohub.js.org/?theme=matrix</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?theme=cyberpunk</loc>
+    <loc>https://goohub.js.org/?theme=cyberpunk</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?theme=hacker</loc>
+    <loc>https://goohub.js.org/?theme=hacker</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?theme=neon</loc>
+    <loc>https://goohub.js.org/?theme=neon</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?theme=ocean</loc>
+    <loc>https://goohub.js.org/?theme=ocean</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yoursite.com/?theme=fire</loc>
+    <loc>https://goohub.js.org/?theme=fire</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
