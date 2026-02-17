@@ -16,11 +16,15 @@ class MetaTagManager {
     }
 
     getBaseMetaTags() {
+        // Use GOOHUB_CONFIG if available, otherwise fallback to defaults
+        const config = window.GOOHUB_CONFIG || {};
+        const primaryDomain = config.primaryDomain || 'https://goohub.js.org';
+
         return {
             title: 'ศูนรวมของเล่นDevสไตล์Hacker - Advanced Web Security Toolkit',
             description: 'Discover powerful web security tools and development utilities for ethical hackers and developers. Features floating console, security scanners, and hacker-themed interface.',
             keywords: 'web security, ethical hacking, developer tools, security scanner, penetration testing, javascript tools, hacker tools, dev utilities, security testing, web development',
-            image: 'https://goohub.js.org/gooimage/goometa.png',
+            image: typeof getImageURL === 'function' ? getImageURL('meta') : `${primaryDomain}/gooimage/metarum.png`,
             url: window.location.href,
             type: 'website',
             siteName: 'Shark Console',

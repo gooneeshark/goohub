@@ -188,16 +188,18 @@ function runBookmarklet(code) {
 
 // Tool Loading Functions
 function loadGooneeConsole() {
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/console2.js') : TOOLS_BASE + 'console2.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'console2.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('🦈 Goonee Console V2 พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด Goonee Console ไม่สำเร็จ');
     document.body.appendChild(script);
 }
 
 function loadErudark() {
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/console1.js') : TOOLS_BASE + 'console1.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'console1.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('💀 Erudark (Console V1) พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด Erudark ไม่สำเร็จ');
     document.body.appendChild(script);
@@ -240,16 +242,18 @@ function loadEruda() {
 
 function loadEncryptionTools() {
     showToast('🔐 กำลังโหลดเครื่องมือเข้ารหัส...');
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/encryption.js') : TOOLS_BASE + 'encryption.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'encryption.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('🔐 เครื่องมือเข้ารหัสพร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลดเครื่องมือเข้ารหัสไม่สำเร็จ');
     document.body.appendChild(script);
 }
 
 function loadSystemMonitor() {
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/monitor.js') : TOOLS_BASE + 'monitor.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'monitor.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('📊 System Monitor เปิดใช้งานแล้ว!');
     script.onerror = () => showToast('❌ โหลด System Monitor ไม่สำเร็จ');
     document.body.appendChild(script);
@@ -257,8 +261,9 @@ function loadSystemMonitor() {
 
 function loadProxyManager() {
     showToast('🌐 กำลังโหลด Proxy Manager...');
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/postshark.js') : TOOLS_BASE + 'postshark.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'postshark.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('🌐 Proxy Manager พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด Proxy Manager ไม่สำเร็จ');
     document.body.appendChild(script);
@@ -266,24 +271,27 @@ function loadProxyManager() {
 
 function loadAIScan() {
     showToast('☠️ กำลังเริ่ม AI Auto Scan...');
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/sharkscan.js') : TOOLS_BASE + 'sharkscan.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'sharkscan.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('☠️ AI Auto Scan พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด AI Auto Scan ไม่สำเร็จ');
     document.body.appendChild(script);
 }
 
 function loadThemeChanger() {
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/Theme.js') : TOOLS_BASE + 'Theme.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'Theme.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('🎨 Theme Changer พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด Theme Changer ไม่สำเร็จ');
     document.body.appendChild(script);
 }
 
 function loadTwitterTheme() {
+    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/twitter-theme.js') : TOOLS_BASE + 'twitter-theme.js?t=' + G_NOW();
     const script = document.createElement('script');
-    script.src = TOOLS_BASE + 'twitter-theme.js?t=' + G_NOW();
+    script.src = url;
     script.onload = () => showToast('🐦 Twitter Theme พร้อมใช้งาน!');
     script.onerror = () => showToast('❌ โหลด Twitter Theme ไม่สำเร็จ');
     document.body.appendChild(script);
@@ -294,8 +302,8 @@ function showTwitterThemeGuide() {
 🐦 วิธีติดตั้ง Twitter Theme Extension
 
 📥 ลิงก์ดาวน์โหลด:
-• Direct: ${window.location.origin}/${TOOLS_BASE}Gooscript.crx
-• GitHub: https://github.com/P200p/Goonee/tree/main/tools
+• Direct: ${window.GOOHUB_CONFIG ? window.GOOHUB_CONFIG.primaryDomain : window.location.origin}/tools/extension.crx
+• GitHub: https://github.com/gooneeshark/goohub/tree/main/tools
 
 📋 สำหรับ Chrome/Edge:
 1. ดาวน์โหลดไฟล์ extension.crx

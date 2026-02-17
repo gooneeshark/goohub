@@ -356,6 +356,28 @@ window.addEventListener('resize', () => {
 
 animateParticles();
 
+// Initialize Dynamic Assets from config
+function initializeAssets() {
+    if (typeof getImageURL !== 'function') return;
+
+    const assets = {
+        'img-app': 'app',
+        'img-youtube': 'youtube',
+        'img-twitter': 'twitter',
+        'img-facebook': 'facebook'
+    };
+
+    for (const [id, configKey] of Object.entries(assets)) {
+        const img = document.getElementById(id);
+        if (img) {
+            const url = getImageURL(configKey);
+            if (url) img.src = url;
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initializeAssets);
+
 // Parallax Scrolling Effects System
 class ParallaxLayer {
     constructor(speed, opacity, pattern, color) {
