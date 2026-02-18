@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download GooneeBrowser | Security Research Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --primary-glow: rgba(0, 242, 255, 0.5);
+            --bg: #050b14;
+            --card-bg: rgba(13, 25, 41, 0.7);
+            --text: #e0e6ed;
+            --accent: #ff0055;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 85, 0.05) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .logo-area {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+
+        .logo-area::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8892b0;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-top: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: #000;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 2rem 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--primary-glow);
+            background: #fff;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .section-title {
+            margin-top: 4rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #fff;
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        /* Float Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: #495670;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">SECURED BROWSER INTEGRATION</div>
+            <br>
+            <h1 class="logo-area">GooneeBrowser</h1>
+            <p class="subtitle">Customized Android-based security research browser. Integrated with advanced debugging
+                tools, proxy support, and decentralized networking for ethical researchers.</p>
+        </header>
+
+        <main>
+            <div class="main-card">
+                <div class="floating">
+                    <svg width="80" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        style="color: var(--primary); filter: drop-shadow(0 0 10px var(--primary-glow));">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
+                </div>
+                <h2 style="margin-top: 1.5rem;">Android version 2.4.0</h2>
+                <p style="color: #8892b0; margin-bottom: 0.5rem;">Package: com.gooneeshark.browser</p>
+                <a href="GooneeBrowser/app/build/outputs/apk/debug/app-debug.apk" class="download-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download APK
+                </a>
+                <p style="font-size: 0.8rem; color: var(--accent);">⚠️ Warning: For educational and security research
+                    purposes only.</p>
+            </div>
+
+            <h2 class="section-title">Interface Previews</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle.webp" alt="UI Preview 1"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-1.webp" alt="UI Preview 2"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-2.webp" alt="UI Preview 3"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-3.webp" alt="UI Preview 4"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-4.webp" alt="UI Preview 5"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-5.webp" alt="UI Preview 6"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-6.webp" alt="UI Preview 7"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-7.webp" alt="UI Preview 8"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-8.webp" alt="UI Preview 9"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-9.webp" alt="UI Preview 10"></div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-10.webp" alt="UI Preview 11">
+                </div>
+                <div class="gallery-item"><img src="GooneeBrowser/img/batch_Rectangle-11.webp" alt="UI Preview 12">
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Goonee Labs &bull; Built with Privacy in Mind</p>
+        </footer>
+    </div>
+</body>
+
+</html>

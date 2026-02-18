@@ -5,12 +5,13 @@
  */
 
 const GOOHUB_CONFIG = {
-    // 🌍 Primary Domain (เปลี่ยนตรงนี้เมื่อ migrate)
-    primaryDomain: 'https://goohub.js.org',
+    // 🌍 Primary Domain (GitHub Pages)
+    primaryDomain: 'https://gooneeshark.github.io/goojs',
 
-    // 🔄 Fallback Domains (ลองตามลำดับหากโดเมนหลักล้มเหลว)
+    // 🔄 Fallback Domains (Vercel Fallback)
     fallbackDomains: [
-        'https://goohubl.vercel.app'
+        'https://goohubl.vercel.app',
+        'https://goohub.js.org'
     ],
 
     // 🖼️ Image Assets

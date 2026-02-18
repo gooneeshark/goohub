@@ -7,6 +7,7 @@ A comprehensive collection of web security tools, interactive cybersecurity labs
 - **SharkTool Toolkit:** A portable suite of security bookmarklets and scripts.
 - **Developer Extensions:** Customize your web experience (e.g., Twitter Matrix Theme) and debug mobile sites.
 - **Script Marketplace:** A curated list of powerful scripts for automation and security testing.
+- **GooneeBrowser:** A customized browser implementation for security research.
 
 ## 📂 Project Structure
 - `/LAB`: Interactive learning platform (SQL Injection, DDoS, MITM, etc.)
@@ -14,6 +15,7 @@ A comprehensive collection of web security tools, interactive cybersecurity labs
 - `/gooextension`: Chrome extension for various utilities.
 - `/GooneeXeruda`: Eruda-based mobile console extension.
 - `/playground`: Experimental tools and script marketplace.
+- `/GooneeBrowser`: Custom security-focused browser integration. ([Download Page](./goonee-browser.html))
 
 ## 📖 Documentation
 Detailed documentation for all tools can be found in [TOOLS_GUIDE.md](./TOOLS_GUIDE.md).
