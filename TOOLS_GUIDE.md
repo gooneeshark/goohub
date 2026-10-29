@@ -1,62 +1,71 @@
-# Goonee Labs: Tools & Security Toolkit Guide
+# Goohub tools guide
 
-ยินดีต้อนรับสู่คู่มือการใช้งานเครื่องมือทั้งหมดใน Goonee Labs โปรเจคนี้รวบรวมเครื่องมือด้านความปลอดภัย (Security), การพัฒนาเว็บ (Development), และการปรับแต่ง (Customization) ไว้ในที่เดียว
+This guide is the quick catalog for the tools in the repository. For runtime flows and development workflows, see [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
----
+## 1. SharkTool bookmarklets
 
-## 1. Goonee Labs (Interactive Platform)
-**ที่อยู่:** `/LAB`
-แพลตฟอร์มการเรียนรู้ด้าน Cybersecurity แบบ Interactive
+**Source:** [`bookmarklettool/`](./bookmarklettool/)
 
-- **API Security Lab:** เรียนรู้การทำงานของ API และการจัดการ Auth ผ่านระบบจำลอง Gambling API
-- **Classical Ciphers:** ศึกษาการเข้ารหัส Caesar, Vigenère และเทคนิคการถอดรหัส
-- **Network Forensics:** วิเคราะห์ traffic และแพ็กเก็ตจำลอง
-- **Firewall Config:** ฝึกการตั้งค่า Rules ป้องกันระบบ
-- **Port Scanning:** จำลองการใช้ `nmap`
-- **MITM Attack:** เข้าใจการโจมตีแบบดักรับข้อมูล
-- **DDoS Simulation:** จำลองสถาณการณ์การโจมตี DDoS
+- `loader.js` opens a floating tool picker on the current page.
+- `manifest.json` lists local tools and descriptions; selected JavaScript files are loaded in sequence.
+- `panel-theme.css` styles the panel and its interaction states.
+- The tool files include Monitor, Theme, Snipers, BurpShark, SharkScan, Encryption, PostShark and Dev Panel.
+- Deployment requires the loader, manifest, stylesheet and referenced scripts to be published together. See [`bookmarklettool/Freetool.md`](./bookmarklettool/Freetool.md) and [`bookmarklettool/DEV_GUIDE.md`](./bookmarklettool/DEV_GUIDE.md).
+- The proposed competition-demo UX and new-tool catalog are documented in [`bookmarklettool/UX_DEMO_PLAN.md`](./bookmarklettool/UX_DEMO_PLAN.md); proposed tools are not implemented yet.
 
----
+## 2. Browser extensions
 
-## 2. SharkTool (Bookmarklet Toolkit)
-**ที่อยู่:** `/bookmarklettool`
-ชุดเครื่องมือที่สามารถรันได้ทันทีบนเว็บไซต์ใดก็ได้ผ่าน Bookmarklet หรือสคริปต์โหลดเดอร์
+These are separate packages; install only the folder for the product you intend to use.
 
-- **SharkTool Loader (`loader.js`):** ตัวจัดการการโหลดเครื่องมือ (Manage items) สามารถเลือกโหลดเฉพาะที่ต้องการได้
-- **Monitor (`monitor.js`):** ตรวจสอบสถานะระบบเบื้องต้น
-- **Theme (`Theme.js` / `panel-theme.css`):** ปรับเปลี่ยนหน้าตาของเว็บไซต์แบบเรียลไทม์ (Dark, Cyber, Retro, etc.)
-- **BurpShark (`burpshark.js`):** เครื่องมือจำลองการดักจับ Request
-- **PostShark (`postshark.js`):** เครื่องมือส่ง Request (คล้าย Postman แบบย่อ)
-- **Dev Panel (`tool.js`):** แผงควบคุม Hacker สไตล์ (Random Clicker, Form Scanner, Unlocker)
+### X/Twitter Multi-Theme
 
----
+**Source:** [`gooextension/extension/`](./gooextension/extension/)
+Chromium Manifest V3 extension. The popup selects a theme, and its service worker applies local CSS only to `x.com` and `twitter.com`.
 
-## 3. Chrome Extensions
-**ที่อยู่:** `/gooextension`, `/GooneeXeruda`, `/Gooscript`
-ส่วนขยายเบราว์เซอร์สำหรับเพิ่มประสิทธิภาพและความสวยงาม
+### Shark Tools Floating Menu
 
-- **GooneeXeruda:** ติดตั้ง `eruda` (Console สำหรับมือถือ) เพื่อให้ดีบักเว็บได้ทุกที่
-- **Gooscript:** รัน Custom JavaScript บนหน้าเว็บโดยอัตโนมัติ
-- **Twitter Theme:** เปลี่ยนธีม X/Twitter ให้สวยงาม (Matrix Style)
+**Source:** [`gooextension/final/`](./gooextension/final/)
+Floating menu with custom scripts and settings. The current build script produces Chromium and Firefox packages. Review permissions and only run custom scripts on pages you are authorized to modify.
 
----
+### Gooscript snapshot
 
-## 4. Playground & Marketplace
-**ที่อยู่:** `/playground`
-ศูนย์รวมของเล่นและสคริปต์ขั้นสูง
+**Source:** [`Gooscript/Gooscript/`](./Gooscript/Gooscript/)
+Older packaged snapshot of the Shark Tools extension. It differs from `gooextension/final/`; the maintained build flow does not update it automatically.
 
-- **Script Marketplace:** ตลาดรันสคริปต์ที่คัดสรรมาแล้ว (Security, Automation, Data)
-- **System Monitor:** ตรวจสอบ CPU/RAM/Network
-- **Metatag Generator:** เครื่องมือสร้าง Meta Tag สำหรับ Social Sharing
+### Eruda DevTools
 
----
+**Source:** [`GooneeXeruda/GooneeXeruda/`](./GooneeXeruda/GooneeXeruda/)
+Injects the locally bundled Eruda mobile debugging interface. The extension requests the browser's `debugger` permission.
 
-## เทคนิคการใช้งานพื้นฐาน
-### การรันเครื่องมือผ่าน Console
-หากต้องการรันตัวเดโมใน Playground/LAB ให้ใช้คำสั่ง JavaScript ที่ระบุใน `index.html` ของแต่ละส่วน
+### X/Twitter theme prototype
 
-### การใช้บนมือถือ
-แนะนำให้ใช้ **Kiwi Browser** (Android) เพื่อรองรับการติดตั้ง Extension `.crx` และการรัน Bookmarklet ที่ซับซ้อน
+**Source:** [`playground/twittercss/`](./playground/twittercss/)
+Standalone prototype with its own popup and service worker. It is not the maintained extension package.
 
-### พัฒนาโมดูลเอง
-สามารถเพิ่มเครื่องมือใน `bookmarklettool/manifest.json` ตามโครงสร้างที่ระบุใน `DEV_GUIDE.md`
+## 3. Playground
+
+**Source:** [`playground/`](./playground/)
+
+The static Playground contains UI demos, theme controls, script examples, metadata utilities, a script collection and an experimental marketplace. The standalone page is `playground/index.html`; the root `index.html` uses shared scripts and styles from this folder.
+
+Some older browser-test prototypes are in `playground/tests/`. They require a browser page and are not currently automated in CI. The repository-level Node smoke checks are documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+
+## 4. Goonee Labs
+
+**Source:** [`LAB/`](./LAB/)
+
+`LAB/index.html` is the current landing page. `LAB/modules/` contains standalone learning pages for ciphers, SQL injection, XSS, CSRF, network forensics, firewall configuration, wireless security, traffic analysis, simulated MITM/DDoS, and port-scanning concepts. The Gambling API exercise under `LAB/docs/` simulates an API for local training.
+
+Use the labs only as isolated educational exercises. See the [LAB deployment guide](./LAB/README_DEPLOY.md) and [Gambling API lab guide](./LAB/README_GamblingLAB.md).
+
+## 5. GooneeBrowser for Android
+
+**Source:** [`GooneeBrowser/`](./GooneeBrowser/)
+
+Kotlin Android browser with WebView-based browsing, saved tools, split-screen and AI-assisted tool creation. Build and test using Android Studio or the Gradle wrapper; details are in [`GooneeBrowser/README.md`](./GooneeBrowser/README.md).
+
+## 6. Working safely
+
+- Check each extension's `manifest.json` and requested permissions before installation.
+- Script tools execute in or interact with the current page. Use them only on sites and systems you own or have explicit permission to test.
+- Avoid committing API keys, browser profiles, or generated secrets. The Android app's AI key is configured locally.

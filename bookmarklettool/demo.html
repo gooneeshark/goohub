@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SharkTool — หน้าเดโม Page Clarity</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #172033; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 18px max(20px, calc((100% - 980px) / 2)); color: white; background: #123b62; }
+    main { width: min(980px, calc(100% - 32px)); margin: 32px auto; }
+    .intro, .card { padding: 24px; border: 1px solid #d5deea; border-radius: 16px; background: white; }
+    .intro { margin-bottom: 20px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .card img { display: block; width: 100%; height: 110px; margin-bottom: 12px; border-radius: 10px; background: linear-gradient(120deg, #c8d8ec, #e8c89f); object-fit: cover; }
+    a { color: #075ca8; }
+    .demo-note { padding: 12px; border-left: 4px solid #e59b28; background: #fff6df; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>SharkTool Demo Suite</strong>
+    <p>หน้าเดโมออฟไลน์สำหรับทดลอง Page Clarity</p>
+  </header>
+  <main>
+    <section class="intro">
+      <h1>ทำเรื่องซับซ้อนให้เห็นภาพ</h1>
+      <p>หน้านี้มีตัวอย่างโครงสร้างที่ควรทบทวน เพื่อให้เห็นผลตรวจได้ทันทีโดยไม่ต้องใช้บริการภายนอก</p>
+      <p class="demo-note">ข้อมูลทั้งหมดเป็นตัวอย่างในหน้านี้ เครื่องมือจะตรวจในเบราว์เซอร์และไม่ส่งเนื้อหาออก</p>
+    </section>
+
+    <section aria-labelledby="tips-heading">
+      <h3 id="tips-heading">เริ่มจากจุดเล็ก ๆ</h3>
+      <div class="card-grid">
+        <article class="card">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='180'%3E%3Crect width='100%25' height='100%25' fill='%23c8d8ec'/%3E%3C/svg%3E">
+          <h2>ตรวจโครงสร้าง</h2>
+          <p>ดูว่าหัวข้อและลิงก์สื่อความหมายได้ชัดเจนหรือไม่</p>
+          <a href="#details"></a>
+        </article>
+        <article class="card">
+          <img alt="ภาพตัวอย่างการจัดหน้าแบบเรียบง่าย" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='180'%3E%3Crect width='100%25' height='100%25' fill='%23e8c89f'/%3E%3C/svg%3E">
+          <h2>อ่านผลได้ง่าย</h2>
+          <p>ผลตรวจแสดงเป็นรายการ พร้อมพาไปยังตำแหน่งที่ควรตรวจต่อ</p>
+          <a href="#details">ดูรายละเอียดการสาธิต</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="details" aria-labelledby="details-heading" style="margin-top:24px">
+      <h2 id="details-heading">ผลลัพธ์ที่คาดหวัง</h2>
+      <p>Page Clarity จะแสดงหัวข้อที่ข้ามระดับ ลิงก์ที่ไม่มีชื่อ และรูปที่ไม่มีข้อความ alt</p>
+    </section>
+  </main>
+  <script src="./loader.js"></script>
+</body>
+</html>

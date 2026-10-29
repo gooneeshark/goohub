@@ -1,54 +1,61 @@
-# SharkTool — คู่มือแยกสำหรับ User และ Dev
+# SharkTool Loader — development guide
 
----
+## Source layout
 
-## สำหรับผู้ใช้ทั่วไป (User Guide)
+- `loader.js` builds the floating UI, fetches the tool manifest, applies page themes, and loads selected scripts.
+- `manifest.json` is the tool catalog. Each record has an `id`, `name`, relative `url`, and optional `description`.
+- The individual JavaScript tools live next to the loader.
+- `panel-theme.css` styles the floating panel. The loader resolves it beside its own script.
 
-- วิธีติดตั้งและใช้งาน Loader (Bookmarklet, ปุ่มลัด, ฝังใน HTML)
-- การเลือกและโหลดเครื่องมือ
-- การเปลี่ยนธีมหน้าเว็บ
-- การแก้ปัญหาเบื้องต้น (CSP, โหลดไม่ขึ้น, ธีมไม่เปลี่ยน)
-- ตัวอย่างโค้ด Bookmarklet และ Script Loader
-- คำแนะนำการใช้งานบน Kiwi Browser/มือถือ/เดสก์ท็อป
+The loader uses the URL of its current script as the base path. Keep the loader, manifest, stylesheet and every referenced script in the same deployed directory. In the current hosted bookmarklet example that directory is `/sharktool/`; in this repository the source directory is `bookmarklettool/`.
 
-**อ่านคู่มือหลักใน Freetool.md**
+## Add or change a tool
 
----
+1. Add or update the JavaScript file in `bookmarklettool/`.
+2. Add a unique manifest entry, for example:
 
-## สำหรับนักพัฒนา/ผู้ดูแลระบบ (Dev Guide)
+   ```json
+   {
+     "id": "example",
+     "name": "Example",
+     "url": "example.js",
+     "description": "Short explanation of the tool"
+   }
+   ```
 
-### 1. โครงสร้างไฟล์หลัก
-- `sharktool/loader.js` — สคริปต์หลักสำหรับแสดง UI Loader
-- `sharktool/manifest.json` — รายการเครื่องมือ (JSON array)
-- `sharktool/*.js` — ไฟล์เครื่องมือแต่ละตัว (เช่น monitor.js, Theme.js, burpshark.js)
-- `sharktool/panel-theme.css` — สไตล์ธีมของ Loader
+3. Keep the matching entry in `loader.js`'s `FALLBACK_TOOLS` list so the tool remains available if the hosted manifest is unavailable.
+4. Run the repository checks from the root:
 
-### 2. การเพิ่ม/แก้ไขเครื่องมือ
-- เพิ่ม entry ใน `manifest.json` (id, name, url, description)
-- วางไฟล์ JS เครื่องมือในโฟลเดอร์ sharktool
-- Deploy ให้ URL ตรงกับ manifest
-- Loader จะอ่าน manifest อัตโนมัติ (ถ้าโหลดไม่ได้จะ fallback ไป default)
+   ```sh
+   node --test tests/project-quality.test.js
+   ```
 
-### 3. การปรับแต่ง Loader
-- แก้ไข UI/ฟีเจอร์ใน `loader.js`
-- ปรับธีมหรือ CSS ใน `panel-theme.css`
-- ทดสอบ Loader ทั้งแบบ local และบน Netlify
+The loader renders manifest-provided names and descriptions as text. Keep IDs stable because users' selected tool IDs are stored in the destination page's local storage.
 
-### 4. การ deploy
-- Deploy sharktool ทั้งโฟลเดอร์ขึ้น Netlify หรือโฮสต์อื่น
-- ตรวจสอบ path และ URL ให้ตรงกับที่ manifest.json ระบุ
-- ถ้า deploy ใน subfolder (เช่น /sell/) ให้ loader.js, manifest.json, *.js อยู่ในโฟลเดอร์เดียวกัน
+## Test locally
 
-### 5. ข้อควรระวัง
-- ตัวพิมพ์ใหญ่/เล็กของชื่อไฟล์สำคัญมาก (case-sensitive)
-- CSP ของเว็บปลายทางอาจบล็อกการโหลดสคริปต์
-- อย่า hardcode path ใน loader.js ให้ใช้ relative path หรือคำนวณ BASE อัตโนมัติ
-- ทดสอบ fallback กรณี manifest โหลดไม่ได้
-- อัปเดตเอกสารทุกครั้งที่เพิ่ม/ลบเครื่องมือ
+From the repository root, run:
 
----
+```sh
+python -m http.server 8000
+```
 
-## หมายเหตุ
-- User อ่านเฉพาะส่วนต้น (Freetool.md)
-- Dev/Agent อ่านไฟล์นี้ก่อนแก้ไขหรือ deploy
-- ถ้า agent/AI dev หลง context ให้กลับมาอ่านไฟล์นี้ใหม่
+Use the local bookmarklet shown in [`Freetool.md`](./Freetool.md), or open the HTML page that includes the loader. Verify that:
+
+- The panel renders, collapses, closes, and can be moved with mouse or touch.
+- Search and selection work, and the status area reports success or failure.
+- Relative URLs load the expected scripts and stylesheet.
+- The loader still shows its fallback list when the local manifest is unavailable.
+- A reduced-motion preference disables panel transitions.
+
+## Deploy
+
+Publish the contents of `bookmarklettool/` together, preserving filenames and letter case. If the deployment maps this folder to another URL (for example `/sharktool/`), point the bookmarklet to that deployed `loader.js`; the loader discovers the rest of the files relative to it.
+
+The target page may block third-party script or stylesheet requests through CSP. This is a property of the target site; do not advise users to bypass its policy.
+
+## Maintenance notes
+
+- Update this guide and the user guide when tool IDs, the manifest format, or deployment paths change.
+- Do not add a tool to the catalog unless its source file is included in the deployed directory.
+- Bookmarklet tools execute in the target page. Restrict demonstrations and tests to systems where use is authorized.

@@ -1,12 +1,16 @@
-# PowerShell script to build extensions for different browsers
+$ErrorActionPreference = "Stop"
+
+# PowerShell script to build extensions for different browsers.
 Write-Host "🦈 Building Shark Tools Extensions for Multiple Browsers..." -ForegroundColor Cyan
 
-# Create build directory
+# Clean only generated unpacked folders; keep existing release archives intact until replaced.
 $buildDir = "build"
-if (Test-Path $buildDir) {
-    Remove-Item $buildDir -Recurse -Force
+foreach ($target in @("$buildDir/chrome", "$buildDir/firefox")) {
+    if (Test-Path $target) {
+        Remove-Item $target -Recurse -Force
+    }
 }
-New-Item -ItemType Directory -Path $buildDir | Out-Null
+New-Item -ItemType Directory -Path $buildDir -Force | Out-Null
 
 # Files to include in all builds
 $commonFiles = @(
@@ -46,12 +50,6 @@ foreach ($file in $commonFiles) {
 Copy-Item "manifest-firefox.json" "$firefoxDir/manifest.json" -Force
 Copy-Item "background-firefox.js" "$firefoxDir/background.js" -Force
 
-# Copy README.html to build directory if it exists
-if (Test-Path "build/README.html") {
-    Copy-Item "build/README.html" "$buildDir/README.html" -Force
-    Write-Host "  ✅ Copied README.html to build directory" -ForegroundColor Green
-}
-
 Write-Host "📦 Creating extension packages..." -ForegroundColor Yellow
 
 # Create ZIP for Chrome (can be loaded as unpacked or converted to CRX)
@@ -59,15 +57,11 @@ $chromeZip = "$buildDir/shark-tools-chrome.zip"
 Compress-Archive -Path "$chromeDir/*" -DestinationPath $chromeZip -Force
 Write-Host "  ✅ Created Chrome ZIP: $chromeZip" -ForegroundColor Green
 
-# Create XPI for Firefox
+# Create XPI for Firefox using a temporary ZIP archive.
 $firefoxXpi = "$buildDir/shark-tools-firefox.xpi"
-Compress-Archive -Path "$firefoxDir/*" -DestinationPath $firefoxXpi -Force
-# Rename to .xpi
-if (Test-Path $firefoxXpi) {
-    Remove-Item $firefoxXpi -Force
-}
-Compress-Archive -Path "$firefoxDir/*" -DestinationPath "$buildDir/shark-tools-firefox.zip" -Force
-Rename-Item "$buildDir/shark-tools-firefox.zip" "shark-tools-firefox.xpi"
+$firefoxZip = "$buildDir/shark-tools-firefox.zip"
+Compress-Archive -Path "$firefoxDir/*" -DestinationPath $firefoxZip -Force
+Move-Item -Path $firefoxZip -Destination $firefoxXpi -Force
 Write-Host "  ✅ Created Firefox XPI: $firefoxXpi" -ForegroundColor Green
 
 # Create universal ZIP (for manual installation)
@@ -88,9 +82,9 @@ Write-Host "  🌐 Microsoft Edge: $edgeZip" -ForegroundColor White
 Write-Host "  📦 Universal: $universalZip" -ForegroundColor White
 Write-Host ""
 Write-Host "📋 Installation Instructions:" -ForegroundColor Yellow
-Write-Host "  Chrome: Load unpacked extension or drag ZIP to chrome://extensions" -ForegroundColor Gray
+Write-Host "  Chrome: Extract the ZIP, then choose Load unpacked at chrome://extensions" -ForegroundColor Gray
 Write-Host "  Firefox: Go to about:debugging > This Firefox > Load Temporary Add-on (select XPI)" -ForegroundColor Gray
-Write-Host "  Edge: Load unpacked extension or drag ZIP to edge://extensions" -ForegroundColor Gray
+Write-Host "  Edge: Extract the ZIP, then choose Load unpacked at edge://extensions" -ForegroundColor Gray
 Write-Host ""
 Write-Host "🔧 For production deployment:" -ForegroundColor Yellow
 Write-Host "  - Chrome: Submit ZIP to Chrome Web Store" -ForegroundColor Gray

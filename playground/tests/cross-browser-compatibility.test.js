@@ -84,7 +84,7 @@ class CrossBrowserCompatibilityTests {
             { name: 'Destructuring', test: () => { try { eval('const {a} = {a:1}'); return true; } catch(e) { return false; } } },
             { name: 'Async/Await', test: () => { try { eval('async function test() { await Promise.resolve(); }'); return true; } catch(e) { return false; } } },
             { name: 'Classes', test: () => { try { eval('class Test {}'); return true; } catch(e) { return false; } } },
-            { name: 'Modules', test: () => typeof import !== 'undefined' },
+            { name: 'Modules', test: () => 'noModule' in HTMLScriptElement.prototype },
             
             // DOM APIs
             { name: 'querySelector', test: () => typeof document.querySelector === 'function' },

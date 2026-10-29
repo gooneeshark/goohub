@@ -1,36 +1,50 @@
-// Main Test Runner for Automated Testing Suite
-// Orchestrates all test suites and generates comprehensive reports
+'use strict';
 
 class TestRunner {
-    constructor() {
-        this.testSuites = [];
-        this.results = {
-            visual: null,
-            performance: null,
-            compatibility: null,
-            overall: null
-        };
-        this.startTime = null;
-        this.endTime = null;
-    }
-
     async runAllTests(options = {}) {
-        console.log('🚀 Starting Automated Testing Suite...');
-        console.log('=====================================');
-        
-        this.startTime = new Date();
-        
-        const {
-            runVisual = true,
-            runPerformance = true,
-            runCompatibility = true,
-            generateReport = true,
-            saveResults = true
-        } = options;
+        const suites = [
+            { key: 'visual', enabled: options.runVisual !== false, name: 'VisualRegressionTests' },
+            { key: 'performance', enabled: options.runPerformance !== false, name: 'PerformanceBenchmarkTests' },
+            { key: 'compatibility', enabled: options.runCompatibility !== false, name: 'CrossBrowserCompatibilityTests' }
+        ];
+        const results = {};
 
-        try {
-            // Initialize test suites
-            if (runVisual && typeof VisualRegressionTests !== 'undefined') {
-                console.log('\n📸 Initializing Visual Regression Tests...');
-                const visualTests = new VisualRegressionTests();
-                this.results.visual = a
+        for (const suite of suites) {
+            if (!suite.enabled) continue;
+
+            const Suite = globalThis[suite.name];
+            if (typeof Suite !== 'function') {
+                results[suite.key] = { passed: false, error: `${suite.name} is not loaded.` };
+                continue;
+            }
+
+            try {
+                const tests = await new Suite().runAllTests();
+                const testResults = Array.isArray(tests) ? tests : [];
+                results[suite.key] = {
+                    passed: testResults.every(test => test.passed !== false),
+                    count: testResults.length,
+                    tests: testResults
+                };
+            } catch (error) {
+                results[suite.key] = { passed: false, error: error.message || String(error) };
+            }
+        }
+
+        const completedSuites = Object.values(results);
+        results.overall = {
+            passed: completedSuites.length > 0 && completedSuites.every(result => result.passed),
+            suites: completedSuites.length
+        };
+        console.table(Object.entries(results).map(([suite, result]) => ({
+            suite,
+            passed: result.passed,
+            tests: result.count ?? '-',
+            error: result.error ?? ''
+        })));
+        return results;
+    }
+}
+
+globalThis.TestRunner = TestRunner;
+globalThis.runGoohubTests = options => new TestRunner().runAllTests(options);

@@ -17,7 +17,7 @@ if ($py) {
     Start-Process -NoNewWindow -FilePath $py.Path -ArgumentList "-m","http.server",$Port -WorkingDirectory (Get-Location)
     Write-Host "Server started (python) on http://localhost:$Port . Use task manager to stop the background process or run 'Stop-Process -Name python' if needed."
     Start-Sleep -Seconds 1
-    Start-Process "http://localhost:$Port/lab.html"
+    Start-Process "http://localhost:$Port/index.html"
     return
 }
 
@@ -43,7 +43,7 @@ const mime = {
 const server = http.createServer((req,res)=>{
   try {
     let reqPath = decodeURIComponent(req.url.split('?')[0]);
-    if (reqPath === '/') reqPath = '/lab.html';
+    if (reqPath === '/') reqPath = '/index.html';
     let p = path.join(root, reqPath);
     fs.stat(p, (err, st) => {
       if (err) { res.statusCode = 404; res.end('Not found'); return; }
@@ -62,7 +62,7 @@ server.listen(port, ()=>console.log('Listening on http://localhost:'+port));
     Start-Process -NoNewWindow -FilePath $node.Path -ArgumentList $tmp, $Port -WorkingDirectory (Get-Location)
     Write-Host "Server started (node) on http://localhost:$Port . Use task manager to stop the background node process if needed."
     Start-Sleep -Seconds 1
-    Start-Process "http://localhost:$Port/lab.html"
+    Start-Process "http://localhost:$Port/index.html"
     return
 }
 

@@ -189,8 +189,9 @@ window.showNotification = showNotification;
 window.SharkConsole = {
     version: '2.0.0',
     initialized: true
-};// Fix 
-for elements showing as text - Hide unwanted elements
+}
+
+// Hide unwanted elements that were leaking into the simplified page.
 function hideUnwantedElements() {
     // Hide elements that should not be visible
     const elementsToHide = [

@@ -109,6 +109,75 @@
         gap:6px; 
       }
     }
+
+    :root {
+      color-scheme: dark;
+      --surface: #111827;
+      --surface-raised: #172235;
+      --text: #f3f4f6;
+      --muted: #a7b3c5;
+      --accent: #67e8f9;
+      --border: #2b3a50;
+    }
+    * { box-sizing: border-box; }
+    body {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #0b1120;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    h2 { margin: 0 0 6px; font-size: 1.5rem; letter-spacing: -0.02em; }
+    h3 { color: #dbeafe; }
+    .note { color: var(--muted); line-height: 1.5; }
+    .row {
+      padding: 10px;
+      border: 1px solid #202d40;
+      border-radius: 10px;
+      background: rgba(17, 24, 39, 0.72);
+    }
+    .row input[type=text], .row textarea, .row select {
+      flex: 1;
+      min-width: 0;
+      min-height: 40px;
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+      font: inherit;
+    }
+    .row textarea { min-height: 100px; }
+    .row label { color: #d1d5db; font-weight: 600; }
+    button {
+      min-height: 40px;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 650;
+      transition: filter 140ms ease, transform 140ms ease;
+    }
+    button:hover { filter: brightness(1.12); }
+    button:active { transform: translateY(1px); }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .script-card {
+      background: var(--surface-raised);
+      border-color: var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+    .script-card:hover { border-color: var(--accent); }
+    .script-card-description { color: #cbd5e1; }
+    .items, .script-distribution { border-color: var(--border); }
+    @media (max-width: 600px) {
+      .row { flex-direction: column; align-items: stretch; }
+      .row label { min-width: 0; }
+      .controls { flex-wrap: wrap; }
+      .controls button { flex: 1 1 120px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      button, .script-card { transition: none; }
+    }
   </style>
 </head>
 <body>

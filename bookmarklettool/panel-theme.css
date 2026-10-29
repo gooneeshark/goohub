@@ -1,17 +1,52 @@
-/* Panel Theme: Light */
-.panel-theme-light {
-  background: #00ffccaa;
-  color: #F0F0F0;
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 10px #ff0000aa;
-  font-family: 'Press Start 2P', monospace;
+#sharktool-loader-panel,
+#sharktool-loader-panel * {
+  box-sizing: border-box;
 }
 
-/* Panel Theme: Dark */
-.panel-theme-dark {
-  background: #111;
-  color: #0f0;
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 10px #ff0000aa;
-  font-family: 'Press Start 2P', monospace;
+#sharktool-loader-panel button {
+  min-height: 34px;
+  font: inherit;
+  transition: filter 140ms ease, transform 140ms ease;
+}
+
+#sharktool-loader-panel button:hover {
+  filter: brightness(1.12);
+}
+
+#sharktool-loader-panel button:active {
+  transform: translateY(1px);
+}
+
+#sharktool-loader-panel button:focus-visible,
+#sharktool-loader-panel input:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+#sharktool-loader-panel label {
+  cursor: pointer;
+}
+
+#sharktool-loader-panel #stl-list label {
+  padding: 6px;
+  border-radius: 6px;
+}
+
+#sharktool-loader-panel #stl-list label:hover {
+  background: #1e293b;
+}
+
+@media (max-width: 480px) {
+  #sharktool-loader-panel {
+    top: 12px !important;
+    right: 12px !important;
+    width: min(360px, calc(100vw - 24px)) !important;
+    max-height: calc(100vh - 24px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sharktool-loader-panel button {
+    transition: none;
+  }
 }

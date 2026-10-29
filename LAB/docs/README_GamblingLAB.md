@@ -2,11 +2,12 @@
 
 This repository contains a learning lab that simulates a gambling API and a "DevTools Simulator" to teach fetch, headers, request forging, and simple scripting.
 
-Files of interest (in `docs/` for GitHub Pages):
+Files of interest:
 - `GamblingAPI_lab.html` — main lab UI
-- `gambling-lab.js` — frontend logic and scripts library
+- `gambling-lab.js` — loads the shared front-end source from `../gambling-lab.js`
+- `../gambling-lab.js` — frontend logic and scripts library
 - `sw-gamble.js` — service worker that simulates the backend API
-- `LAB_SLIDES.html` — short slide deck for workshop
+- `README_GamblingLAB.md` — usage notes
 - `WORKSHEET_GamblingLAB.md` — worksheet for students
 
 Publishing to GitHub Pages (quick steps):
@@ -17,5 +18,4 @@ Publishing to GitHub Pages (quick steps):
 Notes:
 - Service Workers require HTTPS to function. GitHub Pages provides HTTPS.
 - If you test locally, run a simple static server (for example, `python -m http.server 8000`) and open `http://localhost:8000/docs/GamblingAPI_lab.html`.
-- The `manifest.webmanifest` references `icon-192.png` in `docs/` — add a 192px icon there if you want the PWA install prompt to appear.
-
+- The `manifest.webmanifest` references `icon-192.png`, which is not currently present in this folder; the PWA install icon needs to be added before enabling installation.

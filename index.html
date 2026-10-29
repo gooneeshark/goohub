@@ -6,40 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Goo-Nee Terminal | The Multi-Dimensional Creator Ecosystem</title>
-    <meta name="title" content="Goo-Nee Terminal | The Multi-Dimensional Creator Ecosystem">
+    <title>Goohub | Browser Tools &amp; Developer Utilities</title>
+    <meta name="title" content="Goohub | Browser Tools &amp; Developer Utilities">
     <meta name="description"
-        content="Explore the world of Goo-Nee: A hub for AI-driven music, software development, 3D design, and hacker-aesthetic browser tools. กูนี่รวมทั้งชีวิตมาถ่ายทอดเป็นผลงานทุกรูแบบแล้ว อยากให้ทำอะไรเพิ่มขอมาสิ">
-    <meta name="keywords"
-        content="Goo-Nee, GooUnivers, GooHub, GooMeta, GooSing, AI Music, Software Developer, 3D Artist, GooneeBugSeeder, Hacker Browser">
-
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/icon16.png">
-    <link rel="icon" type="image/png" sizes="48x48"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/icon48.png">
-    <link rel="icon" type="image/png" sizes="128x128"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/icon128.png">
-    <link rel="icon" type="image/png" sizes="192x192"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="https://res.cloudinary.com/dvffsjgc3/image/fetch/f_auto,q_auto:low,w_512/https://goosing.netlify.app/icon/192x192.png">
+        content="รวมเครื่องมือสำหรับนักพัฒนาเว็บ ทั้ง floating console, bookmarklet, browser tools และ JavaScript playground">
+    <meta name="keywords" content="goohub, browser tools, developer utilities, bookmarklet, javascript">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://goo-nee.netlify.app/">
-    <meta property="og:title" content="Goo-Nee Terminal - Hacker Browser Ecosystem">
+    <meta property="og:title" content="Goohub | Browser Tools &amp; Developer Utilities">
     <meta property="og:description"
-        content="Browser hacker aesthetic พร้อมฟีเจอร์สแกน เข้ารหัส และโปรเจกต์ AI Music ภายใต้ Goo Ecosystem กูนี่รวมทั้งชีวิตมาถ่ายทอดเป็นผลงานทุกรูแบบแล้ว อยากให้ทำอะไรเพิ่มขอมาสิ">
-    <meta property="og:image" content="https://i.postimg.cc/Ls5MQ7Mk/image.webp">
+        content="รวมเครื่องมือสำหรับนักพัฒนาเว็บ ทั้ง floating console, bookmarklet, browser tools และ JavaScript playground">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Goo-Nee Terminal - Hacker Browser">
-    <meta name="twitter:description" content="Official portal for Goonee's projects: Music, Design, and Dev tools.">
-    <meta name="twitter:image" content="https://i.postimg.cc/Ls5MQ7Mk/image.webp">
-
-    <link rel="manifest" href="manifest.json">
-    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Goohub | Browser Tools &amp; Developer Utilities">
+    <meta name="twitter:description"
+        content="รวมเครื่องมือสำหรับนักพัฒนาเว็บ, bookmarklet และ JavaScript playground">
 
     <script type="application/ld+json">
     {
@@ -47,31 +28,109 @@
       "@type": "Person",
       "name": "Goonee",
       "alternateName": "Goo-Nee",
-      "url": "https://goo-nee.netlify.app/",
       "description": "Software Developer, 3D Artist, and AI Music Creator behind the Goo Ecosystem.กูนี่รวมทั้งชีวิตมาถ่ายทอดเป็นผลงานทุกรูแบบแล้ว อยากให้ทำอะไรเพิ่มขอมาสิ",
       "sameAs": [
         "https://audio.com/goo-nee",
         "https://soloist.ai/goonee",
         "https://goometa.figma.site/",
         "https://suno.com/@gooneebugseeder",
-        "https://goohubl.vercel.app/",
         "https://goosing.netlify.app/"
       ],
       "knowsAbout": ["Software Development", "AI Prompt Engineering", "3D Modeling", "Digital Music Creation"]
     }
     </script>
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('Service worker registered', reg))
-                    .catch(err => console.error('Service worker registration failed', err));
-            });
-        }
-    </script>
-
     <link rel="stylesheet" href="playground/style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+        }
+
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: 0 -16px 20px;
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(0, 255, 65, .35);
+            background: rgba(5, 12, 8, .96);
+            backdrop-filter: blur(12px);
+        }
+
+        .site-nav ul,
+        .page-toc ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .site-nav a,
+        .page-toc a {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid rgba(0, 255, 65, .25);
+            border-radius: 999px;
+            color: #d7ffe0;
+            text-decoration: none;
+        }
+
+        .site-nav a:hover,
+        .page-toc a:hover,
+        .site-nav a:focus-visible,
+        .page-toc a:focus-visible {
+            border-color: #00ff41;
+            background: rgba(0, 255, 65, .12);
+            outline: 2px solid #00ff41;
+            outline-offset: 2px;
+        }
+
+        .page-toc {
+            margin: 20px 0;
+            padding: 18px;
+            border: 1px solid rgba(0, 255, 65, .35);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, .35);
+        }
+
+        .page-toc h2 {
+            margin: 0 0 12px;
+            font-size: 1.15rem;
+        }
+
+        .social-link {
+            padding: 8px 12px;
+            border: 1px solid rgba(0, 255, 65, .3);
+            border-radius: 8px;
+            color: #d7ffe0;
+        }
+
+        @media (max-width: 600px) {
+            .site-nav {
+                margin-right: -10px;
+                margin-left: -10px;
+            }
+
+            .site-nav ul {
+                gap: 6px;
+            }
+
+            .site-nav a,
+            .page-toc a {
+                padding: 7px 9px;
+                font-size: .9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -107,18 +166,36 @@
         </div>
     </div>
 
-    <div class="container" id="main-content">
+    <div class="container">
         <header class="header">
-            <h1>🦈 Goohub Reborn</h1>
-            <p class="tagline">Explore Powerful Script Runners and Digital Ammunition</p>
-
-            <a href="https://goo-nee.netlify.app/" target="_blank" rel="noopener" title="Facebook Profile"
-                class="social-link">
-                <img src="playground/gooimage/app.png" alt="goonee" class="social-icon">
-            </a>
-    </div>
-
-    </header>
+            <h1>🦈 Goohub</h1>
+            <p class="tagline">รวมเครื่องมือเว็บสำหรับนักพัฒนา ใช้ง่าย พร้อมตัวอย่างและ Bookmarklet</p>
+        </header>
+        <main id="main-content" tabindex="-1">
+            <nav class="site-nav" aria-label="เมนูหลัก">
+                <ul>
+                    <li><a href="#goohubSection">เครื่องมือ</a></li>
+                    <li><a href="#gettingStarted">เริ่มใช้งาน</a></li>
+                    <li><a href="#goolabSection">GooLab</a></li>
+                    <li><a href="#bookmarklets">Bookmarklet</a></li>
+                    <li><a href="#goohubMarketplace">คลังสคริปต์</a></li>
+                    <li><a href="#siteInfo">เกี่ยวกับ</a></li>
+                </ul>
+            </nav>
+            <nav class="page-toc" aria-labelledby="page-toc-title">
+                <h2 id="page-toc-title">สารบัญ</h2>
+                <ul>
+                    <li><a href="#features">ภาพรวม</a></li>
+                    <li><a href="#goohubSection">Goohub Runners</a></li>
+                    <li><a href="#gettingStarted">วิธีใช้งาน</a></li>
+                    <li><a href="#shortcuts">ปุ่มลัด</a></li>
+                    <li><a href="#goolabSection">GooLab</a></li>
+                    <li><a href="#bookmarklets">Bookmarklet</a></li>
+                    <li><a href="#goohubMarketplace">คลังสคริปต์</a></li>
+                    <li><a href="#siteInfo">ลิงก์และแนวทางใช้งาน</a></li>
+                    <li><a href="#ethicalUse">ข้อควรทราบ</a></li>
+                </ul>
+            </nav>
     <!--
          Theme Selector -->
     <div class="theme-selector" id="themeSelector">
@@ -264,20 +341,14 @@
     </div>
     </div>
 
-    <nav class="social-links" aria-label="Social media links">
+    <nav class="social-links" aria-label="ลิงก์ช่องทางโซเชียล">
         <a href="https://m.youtube.com/channel/UCNvI_eSxKkEVMYDJBzGb70g" target="_blank" rel="noopener"
-            title="YouTube Channel" class="social-link">
-            <img src="playground/gooimage/yg.gif" alt="YouTube" class="social-icon">
-        </a>
-        <a href="https://x.com/Omgnhoy" target="_blank" rel="noopener" title="Twitter/X Profile" class="social-link">
-            <img src="playground/gooimage/tw.gif" alt="Twitter/X" class="social-icon">
-        </a>
+            class="social-link">YouTube</a>
+        <a href="https://x.com/Omgnhoy" target="_blank" rel="noopener" class="social-link">X Profile</a>
         <a href="https://web.facebook.com/profile.php?id=61581385322434" target="_blank" rel="noopener"
-            title="Facebook Profile" class="social-link">
-            <img src="playground/gooimage/fb.gif" alt="Facebook" class="social-icon">
-        </a>
+            class="social-link">Facebook</a>
     </nav>
-    <main class="features">
+    <section class="features" id="features" aria-label="ภาพรวมเครื่องมือ">
         <article class="feature">
             <div class="icon" aria-hidden="true">🚀</div>
             <h3>Floating Console</h3>
@@ -288,12 +359,6 @@
             <div class="icon" aria-hidden="true">🔧</div>
             <h3>7 Security Tools</h3>
             <p>เครื่องมือทดสอบช่องโหว่ที่หลากหลาย นำมาบีบอัดเพื่อให้สะดวกในการใช้งาน</p>
-        </article>
-
-        <article class="feature">
-            <div class="icon" aria-hidden="true">📱</div>
-            <h3>ธีมทวิตเตอร์</h3>
-            <p>สิ่งที่Devมือใหม่คิดว่ายาก เราได้ทำมาให้แล้ว แค่โหลด extension ไปปรับแต่งได้ตามสไตล์ของตัวเอง</p>
         </article>
 
         <article class="feature">
@@ -321,7 +386,7 @@
             <p>เบราว์เซอร์ส่วนตัวสำหรับการทำ Security Research พร้อมเครื่องมือในตัว</p>
             <a href="goonee-browser.html" class="btn-link">รายละเอียดดาวน์โหลด</a>
         </article>
-    </main>
+    </section>
 
     <!-- Goohub Script Engine (Previously Arsenal) -->
     <section class="main-tools" id="goohubSection">
@@ -397,16 +462,6 @@
             </div>
 
             <div class="tool-card">
-                <div class="tool-icon">🐦</div>
-                <h3>Twitter Theme Extension</h3>
-                <p>ส่วนขยายสำหรับปรับแต่งธีม Twitter/X ให้สวยงามและเป็นเอกลักษณ์</p>
-                <div class="tool-actions">
-                    <button class="btn-tool" onclick="loadTwitterTheme()">🚀 เปิดใช้งาน</button>
-                    <button class="btn-tool secondary" onclick="copyBookmarklet('twitter-theme')">📋 คัดลอก</button>
-                </div>
-            </div>
-
-            <div class="tool-card">
                 <div class="tool-icon">🌐</div>
                 <h3>GooneeBrowser</h3>
                 <p>Customized Security Browser สำหรับ Android พร้อมเครื่องมือขยับข่ายทางเทคนิค</p>
@@ -429,7 +484,7 @@
         </div>
     </section>
 
-    <section class="getting-started">
+    <section class="getting-started" id="gettingStarted">
         <h2>⚡ วิธีการใช้งาน</h2>
         <p class="getting-started-intro">
             ทำตามขั้นตอนง่ายๆ เหล่านี้เพื่อเริ่มใช้งาน Shark Console บนเว็บไซต์ใดก็ได้:
@@ -462,7 +517,7 @@
         </ol>
     </section>
 
-    <section class="shortcuts">
+    <section class="shortcuts" id="shortcuts">
         <h2>⌨️ ปุ่มลัดคีย์บอร์ด</h2>
         <dl class="shortcut-list">
             <div class="shortcut">
@@ -502,26 +557,6 @@
                     <button class="btn-tool" onclick="loadThemeChanger()">🚀 เปิดใช้งาน</button>
                     <button class="btn-tool secondary" onclick="copyBookmarklet('theme')">📋 คัดลอก</button>
                 </div>
-                <div class="bookmarklet-code" style="display:none;">
-                    <code>javascript:(function(){var s=document.createElement('script');s.src='https://goohub.js.org/sharktool/Theme.js?t='+Date.now();document.body.appendChild(s)})();</code>
-                </div>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon">🐦</div>
-                <h3>Twitter Theme Extension</h3>
-                <p>ส่วนขยายสำหรับ Chrome/Edge/Kiwi Browser เพื่อปรับแต่งธีม Twitter/X</p>
-                <div class="tool-actions">
-                    <a href="https://goohub.js.org/tools/extension.crx" download="twitter-theme-extension.crx"
-                        class="btn-tool">📥 ดาวน์โหลด Extension</a>
-                    <button class="btn-tool secondary" onclick="showTwitterThemeGuide()">📖 วิธีติดตั้ง</button>
-                </div>
-                <div class="extension-info">
-                    <p><strong>รองรับ:</strong> Chrome, Edge, Kiwi Browser (Android)</p>
-                    <p><strong>ฟีเจอร์:</strong> ธีมสีต่างๆ, โหมดมืด, ปรับแต่งฟอนต์</p>
-                    <p><strong>GitHub:</strong> <a href="https://github.com/gooneeshark/goohub/tree/main/tools"
-                            target="_blank" rel="noopener" style="color: var(--primary-color);">ดูซอร์สโค้ด</a></p>
-                </div>
             </div>
 
             <div class="tool-card">
@@ -531,7 +566,7 @@
                 <div class="tool-actions">
                     <a href="https://apkpure.com/kiwi-browser-fast-quiet/com.kiwibrowser.browser" target="_blank"
                         class="btn-tool">📱 ดาวน์โหลด Kiwi</a>
-                    <a href="https://goohub.js.org/sharktool/Gooscript.crx" download="extension.crx"
+                    <a href="bookmarklettool/Gooscript.crx" download="Gooscript.crx"
                         class="btn-tool secondary">🔧 ดาวน์โหลด
                         Extension</a>
                 </div>
@@ -552,7 +587,7 @@
     </section>
 
     <!-- Bookmarklet Collection -->
-    <section class="bookmarklet-collection">
+    <section class="bookmarklet-collection" id="bookmarklets">
         <h2>🔖 คอลเลกชัน Bookmarklet</h2>
         <p class="section-intro">เครื่องมือต่างๆ ในรูปแบบ bookmarklet ที่สามารถคัดลอกไปใช้งานได้ทันที</p>
 
@@ -560,8 +595,7 @@
             <div class="bookmarklet-item">
                 <h4>🦈 Goonee Console V2</h4>
                 <div class="bookmarklet-code">
-                    <code
-                        id="bm-console2">javascript:(function(){var s=document.createElement('script');s.src='https://goohub.js.org/console2.js?t='+Date.now();document.body.appendChild(s);})();</code>
+                    <code id="bm-console2" data-script-path="console2.js">กำลังเตรียม Bookmarklet…</code>
                 </div>
                 <div class="bookmarklet-actions">
                     <button class="btn-copy" onclick="copyBookmarkletCode('bm-console2')">📋 คัดลอก</button>
@@ -584,8 +618,7 @@
             <div class="bookmarklet-item">
                 <h4>📊 System Monitor</h4>
                 <div class="bookmarklet-code">
-                    <code
-                        id="bm-monitor">javascript:(function(){var s=document.createElement('script');s.src='https://goohub.js.org/sharktool/monitor.js?t='+Date.now();document.body.appendChild(s)})();</code>
+                    <code id="bm-monitor" data-script-path="monitor.js">กำลังเตรียม Bookmarklet…</code>
                 </div>
                 <div class="bookmarklet-actions">
                     <button class="btn-copy" onclick="copyBookmarkletCode('bm-monitor')">📋 คัดลอก</button>
@@ -596,8 +629,7 @@
             <div class="bookmarklet-item">
                 <h4>🛠️ Tool Library</h4>
                 <div class="bookmarklet-code">
-                    <code
-                        id="bm-toollib">javascript:(function(){var s=document.createElement('script');s.src='https://goohub.js.org/sharktool/tool.js?t='+Date.now();document.body.appendChild(s)})();</code>
+                    <code id="bm-toollib" data-script-path="tool.js">กำลังเตรียม Bookmarklet…</code>
                 </div>
                 <div class="bookmarklet-actions">
                     <button class="btn-copy" onclick="copyBookmarkletCode('bm-toollib')">📋 คัดลอก</button>
@@ -605,17 +637,6 @@
                 </div>
             </div>
 
-            <div class="bookmarklet-item">
-                <h4>🐦 Twitter Theme</h4>
-                <div class="bookmarklet-code">
-                    <code
-                        id="bm-twitter-theme">javascript:(function(){var s=document.createElement('script');s.src='https://goohub.js.org/sharktool/twitter-theme.js?t='+Date.now();document.body.appendChild(s)})();</code>
-                </div>
-                <div class="bookmarklet-actions">
-                    <button class="btn-copy" onclick="copyBookmarkletCode('bm-twitter-theme')">📋 คัดลอก</button>
-                    <button class="btn-test" onclick="testBookmarklet('bm-twitter-theme')">🧪 ทดสอบ</button>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -797,22 +818,22 @@
         </div>
     </div>
 
-    <section class="cta">
+    <section class="cta" id="siteInfo" aria-label="ข้อมูลและลิงก์เพิ่มเติม">
         <a href="about.html" class="btn">
             👤 ตัวตนกู (About)
         </a>
         <a href="playground/js-playground.html" class="btn playground-btn">
             🧪 JS Playground (Test Area)
         </a>
-        <a href="https://goohub.js.org/" class="btn secondary" target="_blank" rel="noopener">
-            🌐 Live Test Site
+        <a href="TOOLS_GUIDE.md" class="btn secondary">
+            🌐 คู่มือเครื่องมือ
         </a>
-        <a href="https://goohub.js.org/guide.html" class="btn secondary" target="_blank" rel="noopener">
-            📖 Usage Guide
+        <a href="#goohubSection" class="btn secondary">
+            📖 กลับไปดูเครื่องมือ
         </a>
     </section>
 
-    <section class="disclaimer">
+    <section class="disclaimer" id="ethicalUse">
         <h3>🛡️ Goohub Security & Ethical Guidelines</h3>
         <p>
             Goohub is a dedicated platform for advanced security research, digital forensics, and authorized penetration
@@ -823,16 +844,12 @@
         </p>
     </section>
 
+    </main>
     <footer class="footer">
-        <p class="footer-text">
         <p class="footer-text">
             🦈 ขอบคุณที่ใช้งาน Goohub - Open Source Tool Distribution v2.5<br>
             สร้างด้วยความรักโดยทีม Goohub | © 2025 All Rights Reserved<br>
-            <a href="https://goohub.js.org/" target="_blank" rel="noopener" style="color: var(--primary-color);">🌐
-                เยี่ยมชม Goohub Main Page</a>
-        </p>
-        </p>
-        Happy ethical hacking!<br>หาเจอจนได้ twitter.com/Omgnhoy Line: Pimpop1997
+            <a href="#main-content" style="color: var(--primary-color);">กลับไปด้านบน</a>
         </p>
     </footer>
     </div>
@@ -995,7 +1012,7 @@
     <script src="playground/meta-manager.js"></script>
     <script src="playground/analytics-tracker.js"></script>
     <!-- <script src="playground/analytics-dashboard.js"></script> -->
-    <script src="https://googem.netlify.app/goo-nav.js"></script>
+
 </body>
 
 </html>

@@ -1,5 +1,11 @@
 [
   {
+    "id": "page-clarity",
+    "name": "Page Clarity",
+    "url": "page-clarity.js",
+    "description": "ตรวจโครงสร้างหัวข้อ ลิงก์ และข้อความอธิบายรูป พร้อมไฮไลต์จุดที่ควรทบทวน"
+  },
+  {
     "id": "monitor",
     "name": "Monitor",
     "url": "monitor.js",
@@ -34,6 +40,12 @@
     "name": "Encryption",
     "url": "encryption.js",
     "description": "เครื่องมือเข้ารหัส (Base64/Caesar)"
+  },
+  {
+    "id": "postshark",
+    "name": "PostShark",
+    "url": "postshark.js",
+    "description": "เครื่องมือเตรียมและส่ง HTTP requests สำหรับระบบที่ได้รับอนุญาต"
   },
   {
     "id": "devpanel",

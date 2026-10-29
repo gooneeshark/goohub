@@ -1,164 +1,235 @@
 <!doctype html>
 <html lang="th">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<title>LAB: การพนัน Gambling API (Slot) — สอน JavaScript / fetch</title>
-	<link rel="stylesheet" href="lab.css">
-	<style>
-		body{font-family:Arial,Helvetica,sans-serif;margin:20px}
-		#panel{display:flex;gap:20px}
-		#ui{flex:0 0 420px;border:1px solid #ddd;padding:12px;border-radius:6px}
-		#log{flex:1;min-height:300px;border:1px solid #ccc;padding:12px;background:#fafafa;overflow:auto}
-		.reels{display:flex;gap:8px;font-size:28px;margin:12px 0}
-		button{padding:8px 12px}
-		.hint{color:#555;font-size:13px}
-		.success{color:green}
-		/* Mobile-friendly adjustments */
-		@media (max-width:720px){
-			body{margin:10px}
-			#panel{flex-direction:column}
-			#ui{flex:1 1 auto}
-			#log{order:99;margin-top:12px}
-			.reels{font-size:42px;justify-content:center}
-			button{padding:14px 18px;font-size:18px}
-			#spinBtn{width:100%;font-weight:700}
-		}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAB: Gambling API simulation — JavaScript / fetch</title>
+  <link rel="stylesheet" href="lab.css">
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #172033;
+      background: #f3f6fb;
+    }
 
-		/* small visual overlay hint for touch devices */
-		#mobileOverlay{display:none;position:fixed;left:8px;right:8px;bottom:14px;padding:10px;background:rgba(0,0,0,0.7);color:#fff;border-radius:8px;text-align:center;font-size:15px}
-		body.mobile #mobileOverlay{display:block}
-	/* Bet controls */
-	#betControls{margin-top:10px;display:flex;align-items:center;gap:8px}
-	#betControls .bet-label{font-weight:600}
-	#betInput{width:84px;padding:6px;text-align:center}
-	.history-controls{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-	#historyList{max-height:200px;overflow:auto;background:#fff;border:1px solid #eee;padding:8px}
-	/* DevTools simulator styles */
-	#mainSplit{display:flex;gap:12px;align-items:flex-start}
-	#appArea{flex:1}
-	#appOverlay{display:block;margin-top:10px;background:#fff3cd;border:1px solid #ffeeba;padding:10px;border-radius:6px}
-	#devtools{width:420px;border:1px solid #ddd;padding:12px;border-radius:6px;background:#111;color:#eee}
-	.devtools h3{margin-top:0}
-	.devtools .row{margin-top:8px}
-	#interceptList{max-height:160px;overflow:auto;margin-top:6px;background:#0e0e0e;padding:6px;border-radius:4px}
-	.devTextArea{width:100%;background:#0b0b0b;color:#fff;border:1px solid #222;padding:6px}
-	.devRow{display:flex;gap:8px;margin-top:8px}
-	.forgeInput{width:100%}
-	.scriptArea{display:flex;flex-direction:column}
-	.scriptBtns{display:flex;gap:8px}
-	.scriptConsole{background:#000;color:#0f0;padding:8px;margin-top:8px;max-height:160px;overflow:auto}
-	</style>
+    * { box-sizing: border-box; }
+
+    body {
+      background: #f3f6fb;
+      color: #172033;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: clamp(14px, 3vw, 32px);
+      line-height: 1.55;
+    }
+
+    h1 { margin: 0 0 6px; font-size: clamp(1.35rem, 3vw, 2rem); }
+    h2, h3 { margin-top: 0; }
+    .hint { color: #5b6678; font-size: 0.9rem; }
+    .error-banner { margin: 12px 0; padding: 12px; border: 1px solid #fca5a5; border-radius: 8px; background: #fef2f2; color: #991b1b; }
+    .hidden { display: none !important; }
+
+    #mainSplit {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(300px, 1fr) minmax(280px, 1.1fr);
+      align-items: start;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    #appArea, #ui, #devtools, #log { min-width: 0; }
+    #ui, #devtools, #log {
+      padding: 16px;
+      border: 1px solid #d8e0ec;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(27, 44, 75, 0.06);
+    }
+
+    #devtools {
+      background: #101827;
+      border-color: #26364f;
+      color: #e5edf8;
+    }
+
+    #devtools h3 { margin-bottom: 12px; }
+    #devtools .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    #devtools .row > div { flex: 1 1 180px; min-width: 0; }
+    #devtools label { display: block; margin-bottom: 4px; }
+    #interceptList, #scriptConsole {
+      max-height: 170px;
+      overflow: auto;
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid #26364f;
+      border-radius: 8px;
+      background: #0b1220;
+      color: #d1fae5;
+    }
+
+    .devTextArea, .forgeInput {
+      width: 100%;
+      min-height: 38px;
+      padding: 8px;
+      border: 1px solid #40516b;
+      border-radius: 7px;
+      background: #0b1220;
+      color: #f3f4f6;
+      font: inherit;
+    }
+
+    .devTextArea { min-height: 90px; resize: vertical; }
+    .devRow, .scriptBtns, .history-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .devRow { margin-top: 10px; }
+    .reels { display: flex; justify-content: center; gap: 12px; margin: 18px 0; font-size: 2rem; }
+    #betControls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+    #betInput { width: 90px; min-height: 38px; text-align: center; }
+    #spinBtn { width: 100%; font-weight: 700; }
+    #appOverlay { margin-top: 12px; padding: 12px; border: 1px solid #f4d28c; border-radius: 8px; background: #fff8e6; }
+    #rawLog { max-height: 220px; overflow: auto; overflow-wrap: anywhere; }
+    #historyList { max-height: 220px; overflow: auto; padding: 8px; border: 1px solid #e1e7f0; border-radius: 8px; }
+    button, input, select, textarea { font: inherit; }
+    button { min-height: 38px; padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 7px; background: #f8fafc; color: #172033; cursor: pointer; }
+    button:hover { background: #eaf2ff; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #0284c7; outline-offset: 2px; }
+    #devtools button { border-color: #40516b; background: #1c2a3e; color: #f3f4f6; }
+    #devtools button:hover { background: #293a52; }
+    hr { margin: 16px 0; border: 0; border-top: 1px solid #e2e8f0; }
+    #devtools hr { border-color: #26364f; }
+
+    #mobileOverlay { display: none; }
+
+    @media (max-width: 1000px) {
+      #mainSplit { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #log { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 14px; }
+      #mainSplit { grid-template-columns: minmax(0, 1fr); }
+      #log { grid-column: auto; }
+      .reels { font-size: 2.4rem; }
+      #mobileOverlay { display: none; }
+      body.mobile #mobileOverlay {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        display: block;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.9);
+        color: #fff;
+        text-align: center;
+        pointer-events: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
 </head>
 <body>
-	<h1>LAB: การพนัน Gambling API (Slot) — สอน JavaScript / fetch</h1>
-	<p class="hint">เป้าหมาย: ฝึกการใช้ Developer Console, เรียนรู้ request/response, headers และ payload — เหมาะสำหรับเวิร์กช็อป</p>
+  <main>
+    <h1>LAB: Gambling API simulation</h1>
+    <p class="hint">ฝึกอ่าน request/response, headers และ payload ด้วย API จำลองสำหรับเวิร์กช็อป</p>
+    <div id="app-error" class="error-banner hidden" role="alert"></div>
+    <noscript><p class="error-banner">ต้องเปิดใช้งาน JavaScript เพื่อใช้แบบฝึกหัดนี้</p></noscript>
 
-	<div id="mainSplit">
-		<div id="appArea">
-			<div id="panel">
-				<div id="ui">
-			<div>
-				<label>ชื่อผู้เล่น: <input id="username" value="player1"></label>
-				<button id="loginBtn">Login (simulate)</button>
-			</div>
-			<hr>
-				<label for="editHeaders">Headers (JSON)</label><textarea id="editHeaders" rows="4" class="devTextArea" title="Headers JSON" placeholder='{"x-api-key":"<DEMO_KEY>"}'></textarea></div>
+    <div id="mainSplit">
+      <section id="appArea" aria-label="ตัวจำลอง API">
+        <div id="ui">
+          <div>
+            <label for="username">ชื่อผู้เล่น:</label>
+            <input id="username" value="player1">
+            <button id="loginBtn" type="button">Login (simulate)</button>
+            <p>Balance: <output id="balance">—</output> <button id="refreshBal" type="button">Refresh balance</button></p>
+          </div>
+          <hr>
+          <div id="betControls">
+            <label class="bet-label" for="betInput">Bet:</label>
+            <button id="betMinus" type="button" aria-label="ลด bet">−</button>
+            <input id="betInput" type="number" value="10" min="1" max="1000">
+            <button id="betPlus" type="button" aria-label="เพิ่ม bet">+</button>
+            <span class="hint">Min 1 – Max 1000</span>
+          </div>
+          <div class="reels" id="reels" aria-live="polite">-- -- --</div>
+          <button id="spinBtn" type="button">Spin</button>
+          <div id="spinResult" class="hint" role="status" aria-live="polite"></div>
+          <hr>
+          <h2>Tasks / คำแนะนำ</h2>
+          <ol>
+            <li>เปิด Developer Console แล้วสังเกต request/response เมื่อกด Spin</li>
+            <li>เปิดไฟล์ <code>gambling-lab.js</code> ดูการตั้ง header และ body</li>
+            <li>ทดลองแก้ retry/timeout ในสคริปต์</li>
+            <li>ศึกษา service worker <code>sw-gamble.js</code> เพื่อเข้าใจการจำลอง API</li>
+          </ol>
+        </div>
+        <div id="appOverlay" class="hint">
+          <button id="closeAppOverlay" type="button" aria-label="ปิดคำแนะนำ" style="float:right">ปิด</button>
+          <div>คำแนะนำ: เปิด DevTools Simulator เพื่อดูและแก้ไขคำขอจำลอง</div>
+        </div>
+      </section>
 
-			<div id="betControls">
-				<label class="bet-label" for="betInput">Bet:</label>
-				<button id="betMinus" aria-label="ลด bet">-</button>
-				<input id="betInput" type="number" value="10" min="1" max="1000" />
-				<button id="betPlus" aria-label="เพิ่ม bet">+</button>
-	<span class="hint">Min 1 - Max 1000</span>
-			</div>
+      <section id="devtools" class="devtools" aria-label="DevTools Simulator">
+        <h2>DevTools Simulator</h2>
+        <label class="devRow"><input type="checkbox" id="toggleIntercept"> Intercept outgoing requests</label>
+        <div class="row">
+          <strong>Pending / Intercepted</strong>
+          <div id="interceptList"></div>
+        </div>
+        <hr>
+        <div>
+          <strong>Edit request</strong>
+          <div class="row">
+            <div><label for="editHeaders">Headers (JSON)</label><textarea id="editHeaders" rows="4" class="devTextArea" placeholder='{"x-api-key":"demo-key"}'></textarea></div>
+            <div><label for="editBody">Body (JSON)</label><textarea id="editBody" rows="4" class="devTextArea" placeholder='{"username":"player1","bet":10}'></textarea></div>
+          </div>
+          <div class="devRow"><button id="sendModified" type="button">Send modified</button><button id="replayRequest" type="button">Replay selected</button><button id="unlockApp" type="button">Unlock app</button></div>
+        </div>
+        <hr>
+        <div>
+          <strong>Forge / Craft request</strong>
+          <div class="row">
+            <div><label for="forgePath">Path</label><input id="forgePath" value="/api/spin" class="forgeInput"></div>
+            <div><label for="forgeMethod">Method</label><select id="forgeMethod" class="forgeInput"><option>POST</option><option>GET</option></select></div>
+          </div>
+          <div class="row"><div><label for="forgeBody">Body (JSON)</label><textarea id="forgeBody" rows="3" class="devTextArea">{"username":"player1","bet":10}</textarea></div></div>
+          <div class="devRow"><button id="forgeSend" type="button">Send simulated request</button></div>
+        </div>
+        <hr>
+        <div>
+          <strong>Scripts Library</strong>
+          <div class="row scriptArea">
+            <select id="scriptSelect" class="forgeInput" aria-label="Choose sample script">
+              <option value="autoSpin">AutoSpin demo (5 spins)</option>
+              <option value="showHeaders">Show current API headers</option>
+              <option value="interceptModify">Intercept next request and modify header</option>
+            </select>
+            <div class="scriptBtns"><button id="runScript" type="button">Run script</button><button id="showScript" type="button">Show code</button></div>
+            <pre id="scriptConsole" class="scriptConsole" aria-live="polite">Simulated console...</pre>
+          </div>
+        </div>
+      </section>
 
-			<div class="reels" id="reels">-- -- --</div>
-			<button id="spinBtn">Spin</button>
-			<div id="spinResult" class="hint"></div>
+      <section id="log" aria-label="Request and response logs">
+        <h2>Request / Response Log</h2>
+        <div id="rawLog" aria-live="polite"></div>
+        <hr>
+        <h3>Transaction History</h3>
+        <div class="history-controls">
+          <button id="downloadCsv" type="button">ดาวน์โหลด CSV</button>
+          <button id="clearHistory" type="button">ล้างประวัติ</button>
+          <span class="hint">(เก็บใน localStorage ในเครื่อง)</span>
+        </div>
+        <div id="historyList"></div>
+      </section>
+    </div>
+  </main>
 
-			<hr>
-			<div>
-				<h3>Tasks / คำแนะนำ</h3>
-				<ol>
-					<li>เปิด Developer Console แล้วสังเกต request/response เมื่อกด Spin</li>
-					<li>เปิดไฟล์ <code>gambling-lab.js</code> ดูว่ามีการตั้ง header และ body อย่างไร</li>
-					<li>ทดลองแก้ retry/timeout ในสคริปต์</li>
-					<li>ศึกษา service worker <code>sw-gamble.js</code> เพื่อเข้าใจการจำลอง API</li>
-				</ol>
-			</div>
-				</div>
-
-			</div>
-		<div id="appOverlay" class="hint">
-			<button id="closeAppOverlay" aria-label="Close overlay" style="float:right;background:transparent;border:0;font-size:18px;cursor:pointer">✕</button>
-			<div>ตัวช่วย: (เปิด DevTools Simulator ด้านขวา เพื่อทดลองดักคำขอ)</div>
-		</div>
-+ 
-		</div>
-+
-		<div id="devtools" class="devtools">
-			<h3>DevTools Simulator</h3>
-+      <label class="devRow"><input type="checkbox" id="toggleIntercept"> Intercept outgoing requests</label>
-+      <div class="row">
-+        <strong>Pending / Intercepted</strong>
-+        <div id="interceptList"></div>
-+      </div>
-+      <hr>
-+      <div>
-+        <strong>Edit request</strong>
-+        <div class="row">
-+          <div><label for="editHeaders">Headers (JSON)</label><textarea id="editHeaders" rows="4" class="devTextArea" title="Headers JSON" placeholder='{"x-api-key":"key-demo-123"}'></textarea></div>
-+          <div><label for="editBody">Body (JSON)</label><textarea id="editBody" rows="4" class="devTextArea" title="Body JSON" placeholder='{"username":"player1","bet":10}'></textarea></div>
-+        </div>
-+        <div class="devRow"><button id="sendModified">Send modified</button><button id="replayRequest">Replay selected</button><button id="unlockApp">Unlock app</button></div>
-+      </div>
-+      <hr>
-+      <div>
-+        <strong>Forge / Craft request</strong>
-+        <div class="row">
-+          <div><label for="forgePath">Path</label><input id="forgePath" value="/api/spin" class="forgeInput" title="Path to send" placeholder="/api/spin"></input></div>
-+          <div><label for="forgeMethod">Method</label><select id="forgeMethod" title="HTTP Method"><option>POST</option><option>GET</option></select></div>
-+        </div>
-+        <div class="row"><div><label for="forgeBody">Body (JSON)</label><textarea id="forgeBody" rows="3" class="devTextArea" title="Body JSON">{"username":"player1","bet":10}</textarea></div></div>
-+        <div class="row"><button id="forgeSend">Send forged request</button></div>
-+
-+      <hr>
-+      <div>
-+        <strong>Scripts Library</strong>
-+        <div class="row scriptArea">
-+          <select id="scriptSelect" class="forgeInput" title="Choose sample script">
-+            <option value="autoSpin">AutoSpin demo (5 spins)</option>
-+            <option value="showHeaders">Show current API headers</option>
-+            <option value="interceptModify">Intercept next request and modify header</option>
-+          </select>
-+          <div class="scriptBtns"><button id="runScript">Run script</button><button id="showScript">Show code</button></div>
-+          <pre id="scriptConsole" class="scriptConsole">Simulated console...</pre>
-+        </div>
-+      </div>
-+      </div>
-+    </div>
-+
-+
-+    <div id="log">
-+      <h3>Request / Response Log</h3>
-+      <div id="rawLog"></div>
-+      <hr>
-+      <h4>Transaction History</h4>
-+      <div class="history-controls">
-+        <button id="downloadCsv">ดาวน์โหลด CSV</button>
-+        <button id="clearHistory">ล้างประวัติ</button>
-+        <span class="hint">(เก็บใน localStorage ในเครื่อง)</span>
-+      </div>
-+      <div id="historyList"></div>
-+    </div>
-+  </div>
-+
-+
-+  <hr>
-+  <p class="hint">ตรวจสอบไฟล์ที่เกี่ยวข้อง: <code>sw-gamble.js</code>, <code>gambling-lab.js</code>, README ในโฟลเดอร์ docs</p>
-+
-+  <script src="gambling-lab.js"></script>
-+  <div id="mobileOverlay">ปัดขึ้นเพื่อ Spin (มือถือ)</div>
-+  </body>
-+  </html>
+  <div id="mobileOverlay" aria-hidden="true">ปัดขึ้นเพื่อ Spin (มือถือ)</div>
+  <script src="gambling-lab.js"></script>
+</body>
+</html>

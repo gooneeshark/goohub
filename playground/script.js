@@ -117,14 +117,14 @@ function drawMatrix() {
 
         // Update trail history
         if (!dropTrails[i]) dropTrails[i] = [];
-        dropTrails[i].push({ x, y, time: t });
-        // Keep only recent trail points
-        dropTrails[i] = dropTrails[i].filter(point => t - point.time < 2);
+        const trail = dropTrails[i];
+        trail.push({ x, y, time: t });
+        while (trail.length && t - trail[0].time > 0.5) trail.shift();
 
         // Draw particle trails with fading effect
-        dropTrails[i].forEach((point, index) => {
+        trail.forEach(point => {
             const age = t - point.time;
-            const alpha = Math.max(0, 1 - age / 2) * 0.3;
+            const alpha = Math.max(0, 1 - age / 0.5) * 0.3;
             const trailHue = (baseHue + age * 60) % 360;
 
             ctx.save();
@@ -318,19 +318,15 @@ document.addEventListener('touchmove', (e) => {
 });
 
 // Particle animation loop
-function animateParticles() {
+function animateParticles(time = performance.now() * 0.001) {
     if (!particleCtx) return;
 
     particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-    const time = performance.now() * 0.001;
 
     particles.forEach(particle => {
         particle.update(mouseX, mouseY);
         particle.draw(time);
     });
-
-    requestAnimationFrame(animateParticles);
 }
 
 // Handle window resize for particles
@@ -348,13 +344,41 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Start both animation loops
-(function loop() {
-    drawMatrix();
-    requestAnimationFrame(loop);
-})();
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+let animationFrameId = null;
 
-animateParticles();
+function animateBackground() {
+    if (document.hidden || reducedMotionQuery.matches) {
+        animationFrameId = null;
+        return;
+    }
+
+    drawMatrix();
+    animateParticles();
+    animationFrameId = requestAnimationFrame(animateBackground);
+}
+
+function updateAnimationState() {
+    if (document.hidden || reducedMotionQuery.matches) {
+        if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+        if (!document.hidden) {
+            drawMatrix();
+            animateParticles();
+        }
+        return;
+    }
+
+    if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(animateBackground);
+    }
+}
+
+document.addEventListener('visibilitychange', updateAnimationState);
+reducedMotionQuery.addEventListener('change', updateAnimationState);
+updateAnimationState();
 
 // Initialize Dynamic Assets from config
 function initializeAssets() {

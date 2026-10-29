@@ -25,7 +25,7 @@
 ### 🌐 Chrome/Chromium
 1. เปิด Chrome และไปที่ `chrome://extensions/`
 2. เปิด "Developer mode" (มุมขวาบน)
-3. คลิก "Load unpacked" หรือลากไฟล์ ZIP มาวาง
+3. แตก `shark-tools-chrome.zip` แล้วคลิก "Load unpacked" และเลือกโฟลเดอร์ package ที่แตกแล้ว (หรือเลือก source folder นี้ระหว่างพัฒนา)
 
 ### 🦊 Firefox
 1. เปิด Firefox และไปที่ `about:debugging`
@@ -35,7 +35,7 @@
 ### 🌊 Microsoft Edge
 1. เปิด Edge และไปที่ `edge://extensions/`
 2. เปิด "Developer mode" (แถบด้านซ้าย)
-3. คลิก "Load unpacked" หรือลากไฟล์ ZIP มาวาง
+3. แตก `shark-tools-edge.zip` แล้วคลิก "Load unpacked" และเลือกโฟลเดอร์ package ที่แตกแล้ว
 
 ### 🥝 Kiwi Browser (Android)
 1. เปิด Kiwi Browser และไปที่ `chrome://extensions/`
@@ -73,6 +73,8 @@
 6. คลิก "เพิ่มปุ่ม"
 
 ## 🛠️ การพัฒนา
+
+Source ที่แก้ไขได้อยู่ในโฟลเดอร์นี้ ส่วน `build/` เป็น package และ staging output ที่สร้างขึ้นใหม่ ให้แก้ไฟล์ source ก่อนแล้วจึง build อีกครั้ง
 
 ### สร้างไฟล์ติดตั้ง
 ```powershell
@@ -124,6 +126,7 @@
 - **Firefox:** ใช้ Manifest V2 เพื่อความเข้ากันได้ ส่วนขยายจะเป็นแบบชั่วคราว
 - **Kiwi Browser:** ต้องแตกไฟล์ ZIP ก่อนติดตั้ง เนื่องจากข้อจำกัดของระบบไฟล์ Android
 - **การพัฒนา:** หากแก้ไขโค้ด ต้องรีโหลดส่วนขยายใหม่
+- **Build:** รัน `build-extensions.ps1` จากโฟลเดอร์นี้; สคริปต์จะสร้าง staging folders ใหม่และเขียนทับ package ที่ชื่อเดียวกัน
 - **สิทธิ์:** ตรวจสอบให้แน่ใจว่าส่วนขยายได้รับสิทธิ์ที่จำเป็น
 
 ## 🚀 Production Deployment

@@ -288,57 +288,6 @@ function loadThemeChanger() {
     document.body.appendChild(script);
 }
 
-function loadTwitterTheme() {
-    const url = typeof getAssetURL === 'function' ? getAssetURL('/sharktool/twitter-theme.js') : TOOLS_BASE + 'twitter-theme.js?t=' + G_NOW();
-    const script = document.createElement('script');
-    script.src = url;
-    script.onload = () => showToast('🐦 Twitter Theme พร้อมใช้งาน!');
-    script.onerror = () => showToast('❌ โหลด Twitter Theme ไม่สำเร็จ');
-    document.body.appendChild(script);
-}
-
-function showTwitterThemeGuide() {
-    const guide = `
-🐦 วิธีติดตั้ง Twitter Theme Extension
-
-📥 ลิงก์ดาวน์โหลด:
-• Direct: ${window.GOOHUB_CONFIG ? window.GOOHUB_CONFIG.primaryDomain : window.location.origin}/tools/extension.crx
-• GitHub: https://github.com/gooneeshark/goohub/tree/main/tools
-
-📋 สำหรับ Chrome/Edge:
-1. ดาวน์โหลดไฟล์ extension.crx
-2. เปิด chrome://extensions/
-3. เปิด Developer mode (สวิตช์ขวาบน)
-4. ลากไฟล์ .crx ลงในหน้าต่าง
-5. คลิก "Add extension"
-
-📱 สำหรับ Kiwi Browser (Android):
-1. ดาวน์โหลดไฟล์ extension.crx
-2. เปิด Kiwi Browser
-3. ไปที่ ⋮ > Extensions
-4. เปิด Developer mode
-5. คลิก "Load unpacked" หรือลากไฟล์
-
-✨ ฟีเจอร์หลัก:
-• 🎨 ธีมสีต่างๆ สำหรับ Twitter/X
-• 🌙 โหมดมืดแบบกำหนดเอง
-• 🔤 ปรับแต่งฟอนต์และขนาดตัวอักษร
-• 👁️ ซ่อน/แสดงองค์ประกอบต่างๆ
-• 💾 บันทึกการตั้งค่าอัตโนมัติ
-• 🚀 ใช้งานง่าย ไม่ซับซ้อน
-
-🔗 ทางเลือกอื่น:
-หากติดตั้ง Extension ไม่ได้ สามารถใช้ Bookmarklet แทนได้
-คัดลอกโค้ด Twitter Theme Bookmarklet ไปสร้างบุ๊คมาร์ค
-
-⚠️ หมายเหตุ:
-Extension นี้ปลอดภัย 100% และเป็น Open Source
-ตรวจสอบซอร์สโค้ดได้ที่ GitHub
-    `;
-
-    alert(guide);
-}
-
 // Bookmarklet Functions
 function copyBookmarklet(type) {
     const baseUrl = getBaseUrl();
@@ -350,7 +299,6 @@ function copyBookmarklet(type) {
         'proxy': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}postshark.js?t='+Date.now();document.body.appendChild(s)})();`,
         'ai-scan': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}sharkscan.js?t='+Date.now();document.body.appendChild(s)})();`,
         'theme': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}Theme.js?t='+Date.now();document.body.appendChild(s)})();`,
-        'twitter-theme': `javascript:(function(){var s=document.createElement('script');s.src='${baseUrl}${TOOLS_BASE}twitter-theme.js?t='+Date.now();document.body.appendChild(s)})();`,
         'design-mode': `javascript:document.designMode=document.designMode==='on'?'off':'on';void(0);`,
         'pass-reveal': `javascript:(function(){var p=document.querySelectorAll('input[type="password"]');for(var i=0;i<p.length;i++)p[i].type='text';})();`,
         'element-zapper': `javascript:(function(){document.body.style.cursor='crosshair';document.addEventListener('click',function(e){e.preventDefault();e.target.remove();}, {once:true});})();`,
@@ -366,7 +314,15 @@ function copyBookmarklet(type) {
     }
 }
 
+function refreshHostedBookmarklets() {
+    document.querySelectorAll('code[data-script-path]').forEach(element => {
+        const scriptUrl = new URL(`${TOOLS_BASE}${element.dataset.scriptPath}`, window.location.href).href;
+        element.textContent = `javascript:(function(){var s=document.createElement('script');s.src=${JSON.stringify(scriptUrl)}+'?t='+Date.now();document.body.appendChild(s);})();`;
+    });
+}
+
 function copyBookmarkletCode(elementId) {
+    refreshHostedBookmarklets();
     const element = document.getElementById(elementId);
     if (element && copyToClipboard(element.textContent)) {
         showToast('📋 คัดลอกโค้ดแล้ว!');
@@ -376,6 +332,7 @@ function copyBookmarkletCode(elementId) {
 }
 
 function testBookmarklet(elementId) {
+    refreshHostedBookmarklets();
     const element = document.getElementById(elementId);
     if (element) {
         runBookmarklet(element.textContent);
@@ -502,9 +459,8 @@ window.loadSystemMonitor = loadSystemMonitor;
 window.loadProxyManager = loadProxyManager;
 window.loadAIScan = loadAIScan;
 window.loadThemeChanger = loadThemeChanger;
-window.loadTwitterTheme = loadTwitterTheme;
-window.showTwitterThemeGuide = showTwitterThemeGuide;
 window.copyBookmarklet = copyBookmarklet;
 window.copyBookmarkletCode = copyBookmarkletCode;
 window.testBookmarklet = testBookmarklet;
 window.createMatrixEffect = createMatrixEffect;
+refreshHostedBookmarklets();
