@@ -1,4 +1,4 @@
-const TARGET_HOSTS = new Set(['twitter.com', 'x.com']);
+const TARGET_HOSTS = new Set(['gu.loop.fans']);
 const THEME_KEYS = ['dark','goonee','amoled','sepia','midnight','dracula','nord','solarized_dark','solarized_light','high_contrast','grayscale','cyberpunk','sharktheme','pastel','vibrant_red','vibrant_orange','vibrant_blue','vibrant_purple'];
 const THEME_FILE = (key) => `themes/${key}.css`;
 
@@ -23,29 +23,28 @@ function isTarget(url) {
   try { return TARGET_HOSTS.has(new URL(url).hostname); } catch { return false; }
 }
 
-// Install rules to show action only on X/Twitter
-chrome.runtime.onInstalled.addListener(async () => {
+// Show the extension action only on gu.loop.fans.
+chrome.runtime.onInstalled.addListener(() => {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
     chrome.declarativeContent.onPageChanged.addRules([{
       conditions: [
-        new chrome.declarativeContent.PageStateMatcher({ pageUrl: { hostEquals: 'twitter.com' } }),
-        new chrome.declarativeContent.PageStateMatcher({ pageUrl: { hostEquals: 'x.com' } })
+        new chrome.declarativeContent.PageStateMatcher({ pageUrl: { hostEquals: 'gu.loop.fans' } })
       ],
       actions: [new chrome.declarativeContent.ShowAction()]
     }]);
   });
 });
 
-// Inject CSS when page completes loading
+// Inject CSS when page completes loading.
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab?.url && isTarget(tab.url)) {
     void applyThemeToTab(tabId).catch(error => {
-      console.error('[X Themes] Could not apply the saved theme.', error);
+      console.error('[Loop Fans Themes] Could not apply the saved theme.', error);
     });
   }
 });
 
-// Re-apply on theme change
+// Re-apply on theme change.
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === 'sync' && changes.theme) {
     try {
@@ -56,12 +55,12 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
         }
       }
     } catch (error) {
-      console.error('[X Themes] Could not update open tabs after a theme change.', error);
+      console.error('[Loop Fans Themes] Could not update open tabs after a theme change.', error);
     }
   }
 });
 
-// Preview a theme without saving (for popup random/preview)
+// Preview a theme without saving.
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (!msg || msg.type !== 'previewTheme') return false;
   if (!THEME_KEYS.includes(msg.theme)) {
@@ -77,11 +76,11 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         await chrome.scripting.insertCSS({ target: { tabId: tab.id }, files: [THEME_FILE(msg.theme)] });
         sendResponse({ ok: true });
       } else {
-        sendResponse({ ok: false, error: 'not_on_twitter' });
+        sendResponse({ ok: false, error: 'not_on_target' });
       }
     } catch (error) {
       sendResponse({ ok: false, error: error.message || String(error) });
     }
   })();
-  return true; // keep channel open for async sendResponse
+  return true;
 });
