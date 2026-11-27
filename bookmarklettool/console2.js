@@ -397,7 +397,7 @@
       <div id="gc2Status">พร้อมใช้งาน</div>
       <div style="display:flex;gap:8px;align-items:center;">
         <span style="font-size:10px;opacity:0.7;">Ctrl+Shift+H=Hacker | Ctrl+Shift+P=Passwords | Ctrl+Shift+X=XSS</span>
-        <a href="https://x.com/omgnhoy" style="color:var(--accent);text-decoration:none;">@omgnhoy</a>
+        <a href="https://gu.loop.fans" style="color:var(--accent);text-decoration:none;">gu.loop.fans</a>
         <div id="gc2ThemeName" class="gc2-badge">Matrix</div>
       </div>
     </div>
