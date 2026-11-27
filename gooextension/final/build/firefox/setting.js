@@ -184,6 +184,9 @@
                 font-size: 11px;
               ">Storage</button>
             </div>
+            <div style="padding:6px 10px;font-size:12px;text-align:right;border-top:1px solid #30363d;">
+              <a href="https://gu.loop.fans" target="_blank" rel="noopener noreferrer" style="color:#00bcd4;text-decoration:none;">gu.loop.fans</a>
+            </div>
           </div>
         \`;
         
