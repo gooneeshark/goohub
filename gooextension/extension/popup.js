@@ -58,8 +58,8 @@ btnRandom.addEventListener('click', async () => {
   try {
     const response = await chrome.runtime.sendMessage({ type: 'previewTheme', theme });
     if (!response?.ok) {
-      setStatus(response?.error === 'not_on_twitter'
-        ? 'Open X or Twitter to preview a theme.'
+      setStatus(response?.error === 'not_on_target'
+        ? 'Open gu.loop.fans to preview a theme.'
         : `Preview failed: ${response?.error || 'No response from the extension.'}`, 'error');
       return;
     }
@@ -76,7 +76,7 @@ btnExport.addEventListener('click', async () => {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = 'x-theme-settings.json';
+    anchor.download = 'loop-fans-theme-settings.json';
     anchor.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     setStatus('Settings exported.');
